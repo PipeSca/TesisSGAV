@@ -16,7 +16,7 @@ Por el lado del soporte técnico y el procesamiento a gran escala, se despliega 
 
 Finalmente, el laboratorio impulsa el estudio de nuevas tendencias y recursos de software para IA. Esta última línea de trabajo se centra en explorar herramientas de software emergentes y en transferir los principios rigurosos de la ingeniería de sistemas hacia el ecosistema de los sistemas inteligentes. Mediante la optimización del código y la adopción de metodologías de desarrollo modernas, este eje busca garantizar la mantenibilidad, escalabilidad y eficiencia de los productos de software que integran componentes cognitivos.
 
-\section{Ministerio Publico Fiscal de la Provincia de Córdoba - MPF}\label{ministerio-publico-fiscal-de-la-provincia-de-cuxf3rdoba---mpf}
+\section{Ministerio Público Fiscal de la Provincia de Córdoba - MPF}\label{ministerio-publico-fiscal-de-la-provincia-de-cuxf3rdoba---mpf}
 
 El Ministerio Público Fiscal (MPF) de la Provincia de Córdoba es un órgano constitucional dotado de autonomía funcional y autarquía administrativa, integrado al Poder Judicial. Su función principal, bajo la dirección de la Fiscalía General, consiste en promover la actuación de la justicia en defensa de los intereses de la sociedad civil, dirigir la investigación penal preparatoria y ejercer la acción penal pública.
 
@@ -32,12 +32,15 @@ Este trabajo se centra específicamente en la Unidad Judicial de Accidentología
 \caption{Áreas del Ministerio Público Fiscal de la Provincia de Córdoba}
 \label{tab:areas-del-ministerio-publico-fiscal-de-l}\\
 \toprule\noalign{}
+\textbf{Nivel Operativo / Área} & \textbf{Componentes y Unidades Específicas.} \\
+\midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
+\textbf{Nivel Operativo / Área} & \textbf{Componentes y Unidades Específicas.} \\
+\midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-\textbf{Nivel Operativo / Área} & \textbf{Componentes y Unidades Específicas.} \\
 Alta Dirección & Fiscalía General de la Provincia y Fiscalías Generales Adjuntas. \\
 Gestión Estratégica & Dirección General de Planificación y Control de Gestión; Instituto de Formación; Dirección de Infraestructura. \\
 Fiscalías por Instancia & Fiscalías de Cámara y Fiscalías de Instrucción. \\
@@ -48,7 +51,7 @@ Unidad Especializada en Siniestralidad & Unidades Judiciales de Accidentología 
 Auxiliares de la Justicia & Policía Judicial (Gabinetes de Reconstrucción Criminal y Fotografía Legal); Fuerza Policial Antinarcotráfico (FPA). \\
 \end{longtable}
 
-Fuente: Elaboración propia en base a la normativa de convenios con la FCEFyN-UNC y el portal institucional del Ministerio Público Fiscal de Córdoba
+\notaflot{\fuentepropia{} en base a la normativa de convenios con la FCEFyN-UNC y el portal institucional del Ministerio Público Fiscal de Córdoba.}
 
 \section{LIDeSIA y MPF}\label{lidesia-y-mpf}
 
@@ -72,18 +75,18 @@ A modo introductorio se mencionará que los accidentes son clasificados por su g
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{imagenes/image13.png}
-\caption{Descripción pendiente}
+\caption{Procedimiento judicial ante un siniestro vial}
 \label{fig:procedimiento-judicial-siniestro}
 \end{figure}
 
 El procedimiento judicial tanto en su dimensión administrativa como pericial ante un siniestro vial se inicia con la toma de conocimiento por parte de la fiscalía de instrucción, que opera específicamente a través de las unidades judiciales, en este caso en particular actúa la unidad judicial de accidentología vial (UJ), las cuales practican los primeros actos de la investigación penal preparatoria. Según la calificación legal del hecho, que puede comprender desde lesiones leves hasta homicidio, puede solicitarse la intervención de la base operativa de Policía Judicial para desplegar los recursos técnicos de los gabinetes de reconstrucción criminal y fotografía legal de manera inmediata en el lugar del suceso. Tras realizar los trabajos y los procesos específicos para la preservación de la escena, el vehículo es resguardado en una Unidad Judicial, acto seguido la oficina técnica realiza las inspecciones oculares y químicas correspondientes.
 
-En paralelo, se desarrolla un proceso de gestión documental y carga de información donde personal administrativo, estudiantes de derecho o abogados completan un formulario inicial e integran la declaración del agente policial interviniente. Esta etapa es crítica dentro del proceso dado que es el momento en cual comienzan a adquirirse los datos y la recopilación de estos registros que constituye la formación del conjunto de datos o dataset. En última instancia, esta sistematización digital permite que la información recolectada funcione como el insumo base para el entrenamiento de modelos de inteligencia artificial, en este sentido hay que destacar otro aspecto de vital importancia y es el referido a el tiempo que pasa entre el accidente y la carga de datos en el dataset. Cuando se trabaja con sistemas que realizan forecasting la disponibilidad de información en función del tiempo es crítica, en especial en problemas donde necesitamos agregar los datos en bloques discretos de tiempo. Este aspecto se desarrolla con suficiente profundidad más adelante, en cuanto a su influencia en el proceso se contempla esta restricción tanto para la decisión del modelo, la estructura de los dataset, la arquitectura del sistema en su conjunto y los requerimientos y funcionalidades del producto.
+En paralelo, se desarrolla un proceso de gestión documental y carga de información donde personal administrativo, estudiantes de derecho o abogados completan un formulario inicial e integran la declaración del agente policial interviniente. Esta etapa es crítica dentro del proceso dado que es el momento en cual comienzan a adquirirse los datos y la recopilación de estos registros que constituye la formación del conjunto de datos o dataset. En última instancia, esta sistematización digital permite que la información recolectada funcione como el insumo base para el entrenamiento de modelos de inteligencia artificial, en este sentido hay que destacar otro aspecto de vital importancia y es el referido a el tiempo que pasa entre el accidente y la carga de datos en el dataset. Cuando se trabaja con sistemas que realizan \eng{forecasting} la disponibilidad de información en función del tiempo es crítica, en especial en problemas donde necesitamos agregar los datos en bloques discretos de tiempo. Este aspecto se desarrolla con suficiente profundidad más adelante, en cuanto a su influencia en el proceso se contempla esta restricción tanto para la decisión del modelo, la estructura de los dataset, la arquitectura del sistema en su conjunto y los requerimientos y funcionalidades del producto.
 
 \section{Objetivo del proyecto}\label{objetivo-del-proyecto}
 
-Este proyecto integrador consiste en el diseño de un producto end to end, comenzando desde la transformación de los datos, el desarrollo de modelos impulsados por inteligencia artificial y la implementación de los mismos a nivel MVP en un sistema integrado y desplegado que pueda ser consumido por el usuario final.
+Este proyecto integrador consiste en el diseño de un producto \eng{end-to-end}, comenzando desde la transformación de los datos, el desarrollo de modelos impulsados por inteligencia artificial y la implementación de los mismos a nivel MVP en un sistema integrado y desplegado que pueda ser consumido por el usuario final.
 
 Este producto será concebido desde una mirada transversal y con particular interés en los aspectos que competen al campo de la ingeniería industrial, en ese sentido se puede destacar el uso de metodologías ágiles para la gestión del proyecto de desarrollo, las competencias relacionadas al trabajo con equipos de múltiples disciplinas en especial las que no están vinculadas a las ciencias exactas, el enfoque sistémico para mejorar un proceso donde están implicados no sólo aspectos tecnológicos sino también humanos y normativos. Otro campo de la ingeniería industrial que se tendrá en cuenta para los objetivos de este producto es el relacionado a los sistemas de gestión, en particular para este caso es la Norma ISO/IEC 42001 para el desarrollo responsable, transparente y ético.
 
-De manera general y sin perjuicio de lo antes mencionado, este trabajo incluirá un análisis de los principales aspectos de la gestión de un producto impulsado por inteligencia artificial para forecasting de accidentes viales, como gestión de riesgos, análisis y definición de requisitos, escalabilidad del producto, evaluación de impacto y la documentación asociada a sus partes.
+De manera general y sin perjuicio de lo antes mencionado, este trabajo incluirá un análisis de los principales aspectos de la gestión de un producto impulsado por inteligencia artificial para \eng{forecasting} de accidentes viales, como gestión de riesgos, análisis y definición de requisitos, escalabilidad del producto, evaluación de impacto y la documentación asociada a sus partes.

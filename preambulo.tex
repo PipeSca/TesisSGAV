@@ -5,8 +5,12 @@
 % --- Idioma y codificación ---
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[spanish]{babel}
+\usepackage{lmodern}                 % [A1] fuente Type-1 con mapa Unicode
+\input{glyphtounicode}
+\pdfgentounicode=1                   % [A1] arregla copiado de ligaduras fi/fl
+\usepackage[spanish,es-noquoting]{babel}
 \spanishdecimal{,}
+\usepackage{microtype}
 
 % --- Página y espaciado ---
 \usepackage[a4paper,left=3cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
@@ -19,20 +23,72 @@
 \usepackage{longtable}
 \usepackage{booktabs}
 \usepackage{array}
+\usepackage{tabularx}                % [E15] tablas anchas sin desbordar
+\usepackage{ragged2e}
 \usepackage{caption}
 \captionsetup{font=small,labelfont=bf}
 \usepackage{amsmath,amssymb}
 \usepackage{float}
+
+% --- [F20-F23] Números y unidades con convención española ---
+\usepackage{siunitx}
+\sisetup{
+  output-decimal-marker = {,},
+  group-separator       = {.},
+  group-minimum-digits  = 5,
+  per-mode              = symbol,
+  detect-weight         = true,
+  detect-family         = true
+}
+
+% --- [C6] Nomenclatura: "Tabla" en lugar de "Cuadro" ---
+\addto\captionsspanish{%
+  \renewcommand{\tablename}{Tabla}%
+  \renewcommand{\listtablename}{Índice de tablas}%
+}
 
 % --- Bibliografía (biblatex + biber, estilo APA) ---
 \usepackage{csquotes}
 \usepackage[style=apa,backend=biber]{biblatex}
 \DeclareLanguageMapping{spanish}{spanish-apa}
 \addbibresource{bibliografia.bib}
+\setcounter{biburlnumpenalty}{9000}   % [H32] cortes de URL razonables
+\setcounter{biburlucpenalty}{9000}
+\setcounter{biburllcpenalty}{9000}
 
 % --- Enlaces y referencias cruzadas automáticas ---
 \usepackage[hidelinks]{hyperref}
+\usepackage{xurl}                     % [H32] URLs que rompen en cualquier punto
 \usepackage[spanish,capitalize]{cleveref}
+\crefname{table}{tabla}{tablas}
+\Crefname{table}{Tabla}{Tablas}
+\crefname{figure}{figura}{figuras}
+\Crefname{figure}{Figura}{Figuras}
+\crefname{equation}{ecuación}{ecuaciones}
+\Crefname{equation}{Ecuación}{Ecuaciones}
+
+% ============================================================
+% MACROS DE ESTILO UNIFICADO
+% ============================================================
+
+% --- [D8-D10] Nota al pie del flotante, formato APA ---
+\newcommand{\fuentepropia}{Elaboración propia}
+\newcommand{\notaflot}[1]{%
+  \par\vspace{2pt}%
+  {\footnotesize\setstretch{1.0}\justifying\noindent\emph{Nota.} #1\par}%
+}
+
+% --- [G26] Anglicismos y términos técnicos en cursiva ---
+\newcommand{\eng}[1]{\emph{#1}}
+
+% --- [F24] Nombres de variables y campos del dataset ---
+\newcommand{\var}[1]{\texttt{\small #1}}
+
+% --- [G25] Nombres canónicos de modelos y librerías ---
+\newcommand{\xgboost}{XGBoost}
+\newcommand{\lightgbm}{LightGBM}
+\newcommand{\autogluon}{AutoGluon}
+\newcommand{\autogluonts}{AutoGluon-TimeSeries}
 
 % --- Encabezados de página ---
 \usepackage{fancyhdr}
