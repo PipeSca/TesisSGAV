@@ -1,0 +1,21 @@
+# Archivos temporales generados por la compilación de LaTeX
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.log
+*.lof
+*.lot
+*.toc
+*.out
+*.run.xml
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.nav
+*.snm
+*.vrb
+
+# Carpetas de trabajo temporales
+build/
+preview/

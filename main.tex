@@ -1,0 +1,49 @@
+\documentclass[12pt,twoside,a4paper]{report}
+
+\input{preambulo}
+
+\title{Alerta Temprana de Accidentes Viales basada en Inteligencia Artificial}
+\author{Campos, Andrés Alejo \and Scarazzini, Felipe}
+\date{Septiembre de 2026}
+
+\begin{document}
+
+% ---------------- Portada ----------------
+\input{portada}
+
+% ---------------- Frontmatter ----------------
+\pagenumbering{roman}
+
+\input{frontmatter/resumen}
+\clearpage
+\input{frontmatter/agradecimientos}
+\clearpage
+
+\tableofcontents
+\clearpage
+\listoffigures
+\clearpage
+\listoftables
+\clearpage
+
+\pagenumbering{arabic}
+
+% ---------------- Cuerpo ----------------
+\input{capitulos/introduccion}
+\input{capitulos/marco_teorico}
+\input{capitulos/desarrollo_producto}
+\input{capitulos/resultados}
+
+% ---------------- Bibliografía ----------------
+% \nocite{*} incluye en el listado todas las fuentes de bibliografia.bib,
+% no solo las citadas explícitamente en el texto (igual que en el
+% documento original, que listaba todas las fuentes consultadas).
+\nocite{*}
+\printbibliography[title={Bibliografía},heading=bibintoc]
+
+% ---------------- Apéndices ----------------
+\appendix
+\input{capitulos/anexos}
+\input{capitulos/simbolos}
+
+\end{document}

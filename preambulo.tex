@@ -1,0 +1,46 @@
+% ============================================================
+% Preámbulo - Tesis UNC / FCEFyN - Escuela de Ingeniería Industrial
+% ============================================================
+
+% --- Idioma y codificación ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\spanishdecimal{,}
+
+% --- Página y espaciado ---
+\usepackage[a4paper,left=3cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% --- Tablas, figuras, matemática ---
+\usepackage{graphicx}
+\usepackage{calc}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\usepackage{amsmath,amssymb}
+\usepackage{float}
+
+% --- Bibliografía (biblatex + biber, estilo APA) ---
+\usepackage{csquotes}
+\usepackage[style=apa,backend=biber]{biblatex}
+\DeclareLanguageMapping{spanish}{spanish-apa}
+\addbibresource{bibliografia.bib}
+
+% --- Enlaces y referencias cruzadas automáticas ---
+\usepackage[hidelinks]{hyperref}
+\usepackage[spanish,capitalize]{cleveref}
+
+% --- Encabezados de página ---
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\nouppercase{\leftmark}}
+\fancyhead[LO]{\nouppercase{\rightmark}}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyhead[LE,RO]{\thepage}\renewcommand{\headrulewidth}{0pt}}
