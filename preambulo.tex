@@ -29,17 +29,26 @@
 \captionsetup{font=small,labelfont=bf}
 \usepackage{amsmath,amssymb}
 \usepackage{float}
+\usepackage{etoolbox}
 
 % --- [F20-F23] Números y unidades con convención española ---
 \usepackage{siunitx}
 \sisetup{
   output-decimal-marker = {,},
-  group-separator       = {.},
+  group-separator       = {\text{.}},
   group-minimum-digits  = 5,
   per-mode              = symbol,
   detect-weight         = true,
   detect-family         = true
 }
+
+% --- Interlineado y cuerpo uniformes en todas las tablas ---
+% El documento usa \onehalfspacing; dentro de las tablas se vuelve a
+% simple para que todas tengan exactamente el mismo interlineado.
+\renewcommand{\arraystretch}{1.25}
+\AtBeginEnvironment{longtable}{\setstretch{1.0}\small}
+\AtBeginEnvironment{tabular}{\setstretch{1.0}\small}
+\AtBeginEnvironment{tabularx}{\setstretch{1.0}\small}
 
 % --- [C6] Nomenclatura: "Tabla" en lugar de "Cuadro" ---
 \addto\captionsspanish{%

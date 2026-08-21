@@ -194,23 +194,11 @@ Durante el proceso de entrenamiento se decidió crear nuevas variables y caracte
 \caption{Métricas de rendimiento del modelo LightGBM híbrido L1}
 \label{tab:metricas-de-rendimiento-del-modelo-final}\\
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Métrica de Error}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Valor}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Interpretación}
-\end{minipage} \\
+\textbf{Métrica de Error} & \textbf{Valor} & \textbf{Interpretación} \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Métrica de Error}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Valor}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Interpretación}
-\end{minipage} \\
+\textbf{Métrica de Error} & \textbf{Valor} & \textbf{Interpretación} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -272,23 +260,11 @@ Para probar que tan bien puede funcionar esta propuesta se propone un XGBoost co
 \caption{Métricas de error del XGBoost regresor con capa Z-Score}
 \label{tab:metricas-error-xgb-zscore}\\
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Métrica de Error}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Valor}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Interpretación}
-\end{minipage} \\
+\textbf{Métrica de Error} & \textbf{Valor} & \textbf{Interpretación} \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Métrica de Error}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Valor}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Interpretación}
-\end{minipage} \\
+\textbf{Métrica de Error} & \textbf{Valor} & \textbf{Interpretación} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -322,19 +298,11 @@ En este caso es necesario recordar que las características del dataset son las 
 \caption{Métricas del perceptrón multicapa binario con capa de decisión}
 \label{tab:resumen-de-metricas-del-modelo}\\
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Métrica}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Valor}
-\end{minipage} \\
+\textbf{Métrica} & \textbf{Valor} \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Métrica}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Valor}
-\end{minipage} \\
+\textbf{Métrica} & \textbf{Valor} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -446,29 +414,17 @@ En este punto se comienza definiendo la variable objetivo para el entrenamiento 
 
 Por otro lado se tienen las variables relacionadas a la dimensión del tiempo, como por ejemplo el día está codificado con un 1 para el Lunes, 2 para el Martes y así sucesivamente. Análogamente se categorizaron las franjas horarias en este caso 1 significa la franja que va desde las 00:00 horas hasta las 06:00 horas, el 2 es el bloque contiguo, lo mismo ocurre con la variable mes del año en cuestión. En las variables que refieren al tiempo puede ocurrir un problema dependiendo el modelo que se esté utilizando, este radica en el hecho de que el mismo no entiende que el tiempo es cíclico en el sentido que para el algoritmo el lunes está a una distancia de 6 respecto al domingo, cuando en realidad también los separa una distancia de 1. En este caso tenemos la posibilidad de aplicar una transformación seno coseno a cada una de estas variables solucionando el inconveniente anterior. En el caso de árboles de decisión su uso no es del todo recomendable porque puede generar inconvenientes, pero es necesario aclararlo por si en el modelo definitivo se deciden usar modelos complementarios como el Perceptrón Multicapa por ejemplo.
 
-Si se tiene presente la estrategia de las ventanas deslizantes para traer de forma autorregresiva información del pasado al presente para predecir el futuro, es razonable plantearse que no solo una agregación de las últimas víctimas que hubo en horas pasadas puede ser suficiente para poder hacer un \eng{forecasting} con algún grado de precisión, en cambio conviene generar adecuadamente un tipo de variable que indique tendencias o inercia, esto es por que se sospecha que si existe alguna tendencia al alza en el corto plazo es razonable que en el futuro próximo existan más accidentes. Este es el caso por ejemplo de la variable llamada ``Tendencia\_corto\_victimas'' que representa la diferencia entre las víctimas de las últimas 6 horas y las víctimas de las últimas 24 horas, este principio se extiende a variables de clima, de cantidad de lesionados y demás datos correspondientes. La \cref{tab:estructura-y-tipos-de-datos-del-conjunto} detalla la configuración final del conjunto de datos.
+Si se tiene presente la estrategia de las ventanas deslizantes para traer de forma autorregresiva información del pasado al presente para predecir el futuro, es razonable plantearse que no solo una agregación de las últimas víctimas que hubo en horas pasadas puede ser suficiente para poder hacer un \eng{forecasting} con algún grado de precisión, en cambio conviene generar adecuadamente un tipo de variable que indique tendencias o inercia, esto es por que se sospecha que si existe alguna tendencia al alza en el corto plazo es razonable que en el futuro próximo existan más accidentes. Este es el caso por ejemplo de la variable \var{tendencia\_corto\_victimas} que representa la diferencia entre las víctimas de las últimas 6 horas y las víctimas de las últimas 24 horas, este principio se extiende a variables de clima, de cantidad de lesionados y demás datos correspondientes. La \cref{tab:estructura-y-tipos-de-datos-del-conjunto} detalla la configuración final del conjunto de datos.
 
-\begin{longtable}[]{@{}c>{\raggedright\arraybackslash}p{7cm}l@{}}
+\begin{longtable}[]{@{}rll@{}}
 \caption{Estructura y tipos de datos del conjunto de entrenamiento}
 \label{tab:estructura-y-tipos-de-datos-del-conjunto}\\
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\centering
-\textbf{\#}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Variable (Columna)}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Tipo de Dato}
-\end{minipage} \\
+\textbf{\#} & \textbf{Variable} & \textbf{Tipo de dato} \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\centering
-\textbf{\#}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Variable (Columna)}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Tipo de Dato}
-\end{minipage} \\
+\textbf{\#} & \textbf{Variable} & \textbf{Tipo de dato} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -479,7 +435,7 @@ Si se tiene presente la estrategia de las ventanas deslizantes para traer de for
 3 & \var{dia\_cos} & float64 \\
 4 & \var{mes\_sin} & float64 \\
 5 & \var{mes\_cos} & float64 \\
-6 & es fin\_de\_semana & float64 \\
+6 & \var{es\_fin\_de\_semana} & float64 \\
 7 & tavg & float64 \\
 8 & pres & float64 \\
 9 & \var{cambio\_presion} & float64 \\
@@ -490,9 +446,9 @@ Si se tiene presente la estrategia de las ventanas deslizantes para traer de for
 14 & \var{promedio\_victimas\_24h} & float64 \\
 15 & \var{tendencia\_corto\_victimas} & float64 \\
 16 & \var{aceleracion\_riesgo} & float64 \\
-17 & victimas\_mismo\_momento\_6d & float64 \\
-18 & lesiones\_mismo\_momento\_6d & float64 \\
-19 & \var{tipomesESCOLAR}\_2 & float64 \\
+17 & \var{victimas\_mismo\_momento\_6d} & float64 \\
+18 & \var{lesiones\_mismo\_momento\_6d} & float64 \\
+19 & \var{tipomesESCOLAR\_2} & float64 \\
 20 & \var{TARGET\_CRITICO} & int64 \\
 \end{longtable}
 
@@ -514,19 +470,11 @@ Un método muy extendido en el campo de la ciencia de datos y el machine learnin
 \caption{Hiperparámetros optimizados del modelo}
 \label{tab:hiperparametros-optimizados-del-modelo}\\
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Hiperparámetro}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Valor}
-\end{minipage} \\
+\textbf{Hiperparámetro} & \textbf{Valor} \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Hiperparámetro}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Valor}
-\end{minipage} \\
+\textbf{Hiperparámetro} & \textbf{Valor} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -551,23 +499,11 @@ Otro de los hiperparámetros relevantes en un modelo XGBoost es \var{n\_estimato
 \caption{Métricas de error del modelo de línea base en el conjunto de prueba}
 \label{tab:metricas-error-baseline}\\
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Métrica de Error}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Valor}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Interpretación}
-\end{minipage} \\
+\textbf{Métrica de Error} & \textbf{Valor} & \textbf{Interpretación} \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Métrica de Error}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Valor}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Interpretación}
-\end{minipage} \\
+\textbf{Métrica de Error} & \textbf{Valor} & \textbf{Interpretación} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -594,23 +530,11 @@ Para integrar este modelo en el sistema de alerta temprana necesitamos tomar las
 \caption{Configuración del umbral del sistema de alerta}
 \label{tab:configuracion-del-umbral-del-sistema-de-}\\
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Parámetro}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Valor}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Descripción}
-\end{minipage} \\
+\textbf{Parámetro} & \textbf{Valor} & \textbf{Descripción} \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Parámetro}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Valor}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Descripción}
-\end{minipage} \\
+\textbf{Parámetro} & \textbf{Valor} & \textbf{Descripción} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -664,27 +588,11 @@ También se puede observar que otras variables que se pensaban que podían influ
 \caption{Métricas del modelo para la clase crítica (1) y métricas globales}
 \label{tab:metricas-del-modelo-de-clasificacion-par}\\
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Métrica}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Porcentaje}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Valor Decimal}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Interpretación en el Sistema}
-\end{minipage} \\
+\textbf{Métrica} & \textbf{Porcentaje} & \textbf{Valor Decimal} & \textbf{Interpretación en el Sistema} \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Métrica}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Porcentaje}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Valor Decimal}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Interpretación en el Sistema}
-\end{minipage} \\
+\textbf{Métrica} & \textbf{Porcentaje} & \textbf{Valor Decimal} & \textbf{Interpretación en el Sistema} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -712,23 +620,11 @@ El F1-Score es una métrica ampliamente utilizada para evaluar el desempeño de 
 \caption{Desempeño y errores del modelo en la clase normal (0)}
 \label{tab:desempeno-y-errores-del-modelo-en-la-cla}\\
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Métrica / Concepto}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Valor}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Interpretación en el Sistema}
-\end{minipage} \\
+\textbf{Métrica / Concepto} & \textbf{Valor} & \textbf{Interpretación en el Sistema} \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Métrica / Concepto}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\textbf{Valor}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\textbf{Interpretación en el Sistema}
-\end{minipage} \\
+\textbf{Métrica / Concepto} & \textbf{Valor} & \textbf{Interpretación en el Sistema} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -808,23 +704,11 @@ Con el fin de que la evaluación produzca resultados comparables entre sí, se d
 \caption{Escala de probabilidad de ocurrencia}
 \label{tab:escala-de-probabilidad-de-ocurrencia}\\
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\centering
-\emph{Nivel}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Valor}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Criterio de asignación}
-\end{minipage} \\
+\textbf{Nivel} & \textbf{Valor} & \textbf{Criterio de asignación} \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\centering
-\emph{Nivel}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Valor}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Criterio de asignación}
-\end{minipage} \\
+\textbf{Nivel} & \textbf{Valor} & \textbf{Criterio de asignación} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -844,23 +728,11 @@ Muy alta & 4 & Se verifica de manera sistemática en la situación actual del pr
 \caption{Escala de severidad del impacto}
 \label{tab:escala-de-severidad-del-impacto}\\
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\centering
-\emph{Nivel}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Valor}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Criterio de asignación}
-\end{minipage} \\
+\textbf{Nivel} & \textbf{Valor} & \textbf{Criterio de asignación} \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\centering
-\emph{Nivel}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Valor}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Criterio de asignación}
-\end{minipage} \\
+\textbf{Nivel} & \textbf{Valor} & \textbf{Criterio de asignación} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -882,31 +754,11 @@ Crítico & 4 & Compromete derechos de terceros, obligaciones legales del organis
 \caption{Matriz de nivel de riesgo}
 \label{tab:matriz-de-nivel-de-riesgo}\\
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\centering
-\emph{Probabilidad / Impacto}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Menor (1)}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Moderado (2)}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Mayor (3)}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Crítico (4)}
-\end{minipage} \\
+\textbf{Probabilidad / Impacto} & \textbf{Menor (1)} & \textbf{Moderado (2)} & \textbf{Mayor (3)} & \textbf{Crítico (4)} \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\centering
-\emph{Probabilidad / Impacto}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Menor (1)}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Moderado (2)}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Mayor (3)}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Crítico (4)}
-\end{minipage} \\
+\textbf{Probabilidad / Impacto} & \textbf{Menor (1)} & \textbf{Moderado (2)} & \textbf{Mayor (3)} & \textbf{Crítico (4)} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -935,35 +787,11 @@ La identificación se realizó recorriendo el catálogo de fuentes de riesgo del
 \caption{Registro de identificación y valoración de riesgos}
 \label{tab:registro-de-identificacion-y-valoracion-}\\
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\centering
-\emph{ID}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Descripción del riesgo}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Fuente de riesgo (Anexo B, ISO/IEC 23894)}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{P}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{I}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Nivel}
-\end{minipage} \\
+\textbf{ID} & \textbf{Descripción del riesgo} & \textbf{Fuente de riesgo (Anexo B, ISO/IEC 23894)} & \textbf{P} & \textbf{I} & \textbf{Nivel} \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\centering
-\emph{ID}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Descripción del riesgo}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Fuente de riesgo (Anexo B, ISO/IEC 23894)}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{P}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{I}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Nivel}
-\end{minipage} \\
+\textbf{ID} & \textbf{Descripción del riesgo} & \textbf{Fuente de riesgo (Anexo B, ISO/IEC 23894)} & \textbf{P} & \textbf{I} & \textbf{Nivel} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -995,27 +823,11 @@ La \cref{tab:plan-de-tratamiento-y-riesgo-residual} consigna el tratamiento prev
 \caption{Plan de tratamiento y riesgo residual}
 \label{tab:plan-de-tratamiento-y-riesgo-residual}\\
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\centering
-\emph{ID}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Tratamiento previsto}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Responsable}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Residual en TRL 3}
-\end{minipage} \\
+\textbf{ID} & \textbf{Tratamiento previsto} & \textbf{Responsable} & \textbf{Residual en TRL 3} \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\centering
-\emph{ID}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Tratamiento previsto}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Responsable}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-\emph{Residual en TRL 3}
-\end{minipage} \\
+\textbf{ID} & \textbf{Tratamiento previsto} & \textbf{Responsable} & \textbf{Residual en TRL 3} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}

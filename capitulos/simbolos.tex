@@ -1,15 +1,138 @@
 \chapter{Listado de símbolos y convenciones}\label{listado-de-simbolos-y-convenciones}
 
-% TODO: este capítulo quedó como placeholder en el documento original
-% ("cuando corresponda"), sin contenido real. El documento usa varias
-% siglas (LIDeSIA, MPF, SAT, TRL, CCAD, MVP, etc.) que podrían listarse
-% aquí, por ejemplo con el paquete `glossaries` o una tabla simple:
-%
-% \begin{longtable}{ll}
-% \textbf{Sigla} & \textbf{Significado} \\\midrule
-% LIDeSIA & Laboratorio de Investigación y Desarrollo de Software e IA \\
-% MPF & Ministerio Público Fiscal \\
-% SAT & Sistema de Alerta Temprana \\
-% TRL & Technology Readiness Level \\
-% CCAD & Centro de Computación de Alto Desempeño \\
-% \end{longtable}
+Este apéndice reúne las siglas, los símbolos matemáticos y las convenciones de
+notación empleadas a lo largo del documento. Su finalidad es que cualquier
+lector pueda interpretar sin ambigüedad las tablas, ecuaciones y métricas
+presentadas en los capítulos anteriores.
+
+\section*{Siglas y acrónimos}
+\addcontentsline{toc}{section}{Siglas y acrónimos}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+\textbf{Sigla} & \textbf{Significado} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Sigla} & \textbf{Significado} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+API & \eng{Application Programming Interface} \\
+ARIMA & \eng{AutoRegressive Integrated Moving Average} \\
+AUC & \eng{Area Under the Curve} \\
+CatBoost & \eng{Categorical Boosting} \\
+CCAD & Centro de Computación de Alto Desempeño (UNC) \\
+CPU & \eng{Central Processing Unit} \\
+DeepAR & \eng{Deep AutoRegressive} \\
+EFB & \eng{Exclusive Feature Bundling} \\
+ERIA & Ética, Regulaciones e Impacto de la IA (área de LIDeSIA) \\
+ETS & \eng{Error, Trend, Seasonality} \\
+FCEFyN & Facultad de Ciencias Exactas, Físicas y Naturales \\
+GBM & \eng{Gradient Boosting Machine} \\
+GNN & \eng{Graph Neural Network} \\
+GOSS & \eng{Gradient-based One-Side Sampling} \\
+GPU & \eng{Graphics Processing Unit} \\
+IA & Inteligencia artificial \\
+IEC & \eng{International Electrotechnical Commission} \\
+ISO & \eng{International Organization for Standardization} \\
+ITID & Infraestructura Tecnológica e Ingeniería de Datos (área de LIDeSIA) \\
+LIDeSIA & Laboratorio de Investigación y Desarrollo de Software e IA \\
+LightGBM & \eng{Light Gradient Boosting Machine} \\
+LLM & \eng{Large Language Model} \\
+LSTM & \eng{Long Short-Term Memory} \\
+MAE & \eng{Mean Absolute Error} \\
+MASE & \eng{Mean Absolute Scaled Error} \\
+MIA & Matemática para la IA (área de LIDeSIA) \\
+ML & \eng{Machine Learning} (aprendizaje automático) \\
+MLP & \eng{Multilayer Perceptron} (perceptrón multicapa) \\
+MPF & Ministerio Público Fiscal de la Provincia de Córdoba \\
+MSE & \eng{Mean Squared Error} \\
+MVP & \eng{Minimum Viable Product} (producto mínimo viable) \\
+PatchTST & \eng{Patch Time Series Transformer} \\
+PMI & \eng{Project Management Institute} \\
+PPT & Personas, procesos y tecnología \\
+PR-AUC & \eng{Precision-Recall Area Under the Curve} \\
+RAG & \eng{Red, Amber, Green} (codificación de alertas por color) \\
+RAM & \eng{Random Access Memory} \\
+RMSE & \eng{Root Mean Squared Error} \\
+ROC & \eng{Receiver Operating Characteristic} \\
+SAC & Sistema de Administración de Causas \\
+SAT & Sistema de alerta temprana \\
+SGAV & Sistema de Gestión de Siniestros Viales \\
+SLURM & \eng{Simple Linux Utility for Resource Management} \\
+TFT & \eng{Temporal Fusion Transformer} \\
+TRL & \eng{Technology Readiness Level} (nivel de madurez tecnológica) \\
+UJ & Unidad Judicial \\
+UNC & Universidad Nacional de Córdoba \\
+XAI & \eng{Explainable Artificial Intelligence} (IA explicable) \\
+XGBoost & \eng{Extreme Gradient Boosting} \\
+\end{longtable}
+
+\section*{Símbolos matemáticos}
+\addcontentsline{toc}{section}{Símbolos matemáticos}
+
+\begin{longtable}[]{@{}>{$}l<{$}p{10.5cm}@{}}
+\toprule
+\multicolumn{1}{@{}l}{\textbf{Símbolo}} & \textbf{Significado} \\
+\midrule
+\endfirsthead
+\toprule
+\multicolumn{1}{@{}l}{\textbf{Símbolo}} & \textbf{Significado} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+K & Cantidad de variables medidas simultáneamente en el sistema multivariado. \\
+T & Cantidad total de instantes de tiempo de la serie. \\
+t & Índice del paso de tiempo (bloque de seis horas). \\
+\mathbf{z}_t & Vector de observaciones en el instante $t$, con $\mathbf{z}_t \in \mathbb{R}^{K}$. \\
+\mathbf{Z} & Matriz de datos original, de dimensiones $T \times K$. \\
+n & Cantidad de observaciones del conjunto de entrenamiento. \\
+N & Cantidad de muestras del conjunto de prueba. \\
+y_i & Valor observado de la variable objetivo para la observación $i$. \\
+\hat{y}_i & Valor predicho por el modelo para la observación $i$. \\
+\hat{y}^{(t-1)}_i & Predicción acumulada tras $t-1$ iteraciones de \eng{boosting}. \\
+f_t & Árbol incorporado en la iteración $t$ del \eng{boosting}. \\
+\mathcal{L}^{(t)} & Función objetivo de XGBoost en la iteración $t$. \\
+\Omega(f_t) & Término de regularización que penaliza la complejidad del árbol. \\
+g_i & Gradiente de primer orden de la función de pérdida. \\
+h_i & Gradiente de segundo orden (hessiano) de la función de pérdida. \\
+M & Cantidad de modelos que participan del ensamble ponderado. \\
+w_m & Peso asignado al modelo $m$ en el ensamble, con $\sum w_m = 1$ y $w_m \geq 0$. \\
+m & Período estacional de la serie ($m = 4$ bloques por día). \\
+z & Puntaje estándar (\eng{Z-Score}) usado por la capa de decisión. \\
+\sigma & Desviación estándar del comportamiento histórico. \\
+\text{P10},\ \text{P90} & Cuantiles 10\,\% y 90\,\% del intervalo de predicción. \\
+\end{longtable}
+
+\section*{Convenciones de notación}
+\addcontentsline{toc}{section}{Convenciones de notación}
+
+\begin{description}
+  \item[Separadores numéricos.] Se emplea la coma como separador decimal y el
+    punto como separador de miles a partir de cinco cifras, según la convención
+    del español rioplatense. Los valores tomados de salidas de software fueron
+    convertidos a esta notación.
+  \item[Nombres de variables.] Los campos del conjunto de datos y los
+    hiperparámetros de los modelos se escriben en tipografía monoespaciada,
+    respetando la grafía exacta con la que figuran en el código:
+    \var{TARGET\_CRITICO}, \var{promedio\_victimas\_24h}, \var{max\_depth}.
+  \item[Términos en inglés.] Los anglicismos técnicos sin traducción consolidada
+    se escriben en cursiva (\eng{forecasting}, \eng{baseline}, \eng{recall}).
+    Cuando existe equivalente en español se usa este último, indicando el
+    término original entre paréntesis en su primera aparición.
+  \item[Nombres de modelos y librerías.] Se respeta la grafía oficial de cada
+    proyecto: XGBoost, LightGBM, AutoGluon, AutoGluon-TimeSeries, CatBoost.
+  \item[Tablas y figuras.] Los elementos tabulares se denominan \emph{tablas} y
+    los gráficos, \emph{figuras}; ambos se numeran por capítulo y se referencian
+    de forma cruzada. Cada uno lleva al pie una nota en formato APA que indica
+    su alcance y su fuente.
+  \item[Niveles de alerta.] La codificación por color sigue el criterio definido
+    en la sección de tipos de alerta: verde (línea de base), amarillo
+    (prevención), naranja (alerta) y rojo (crítico).
+  \item[Bloques temporales.] Salvo indicación en contrario, la unidad de
+    agregación es el bloque de seis horas; el bloque 1 abarca de 00:00 a 06:00 y
+    los restantes se numeran de forma consecutiva.
+\end{description}
