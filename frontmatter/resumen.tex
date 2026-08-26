@@ -1,4 +1,12 @@
 \chapter*{Resumen}
+Este proyecto integrador aborda el diseño y desarrollo de un sistema de alerta temprana de siniestros viales basado en inteligencia artificial, en el marco del convenio entre el Laboratorio de Investigación y Desarrollo de Software e Inteligencia Artificial (LIDeSIA) de la FCEFyN-UNC y el Ministerio Público Fiscal de la Provincia de Córdoba. El problema surge de la necesidad de la Unidad Judicial de Accidentología Vial de asignar recursos especializados, físicos y humanos (oficiales de justicia, peritos, personal policial y sanitario) ante eventos cuya ocurrencia es muy difícil anticipar, lo que obliga al organismo a sobredimensionar su operación.
+
+A partir de 4320 siniestros georreferenciados registrados entre 2022 y 2024, se reestructuró el conjunto de datos desde un formato de tabla de hechos hacia una formulación autorregresiva supervisada, agregando la información en bloques discretos de seis horas y ventanas deslizantes. Se experimentó con distintos modelos de inteligencia artificial (LightGBM, perceptrón multicapa, modelos georreferenciados y el pipeline automatizado de AutoGluon-TimeSeries) y se adoptó como modelo de línea base un XGBoost con regresión de Poisson y una capa de decisión posterior, priorizando la explicabilidad exigida por la norma ISO/IEC 42001.
+
+El análisis de importancia de variables mostró que el riesgo se explica principalmente por el comportamiento reciente de la serie y la franja horaria, mientras que las variables climáticas resultaron marginales. El trabajo incluye la gestión de riesgos y la evaluación de impacto conforme a ISO/IEC 42001 y 23894, alcanzando un nivel de madurez tecnológica TRL 3 (ISO 16290:2023).
+
+Palabras clave: alerta temprana, siniestralidad vial, aprendizaje automático, series temporales, XGBoost, ISO/IEC 42001, gestión de producto.
+
 \addcontentsline{toc}{chapter}{Resumen}
 
 % TODO: el documento original dejó esta sección como placeholder
