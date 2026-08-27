@@ -658,14 +658,14 @@ Las dependencias tecnológicas y funcionales aplicables a un proyecto de softwar
 
 Primeramente se deben analizar las dependencias funcionales, es decir, todas las condiciones del negocio o los procesos operativos en los cuales la intervención humana es necesaria para que el producto o sistema funcione. Se tiene por ejemplo el caso de la carga de datos, una falla en este proceso es vital para el sistema, si la información no se carga a tiempo o se introducen datos erróneos el resultado puede ser de impacto crítico en el caso de lo primero (el sistema queda inutilizable) o de impacto medio en el segundo caso (el sistema funciona pero con precisión reducida).
 
-Por otra parte se tienen las dependencias tecnológicas, que son los componentes de hardware, software, servicios en la nube, APIs o bases de datos de los que depende la solución para recopilar datos, entrenar modelos o mostrar resultados. Con el mismo criterio mencionado anteriormente se destaca el Centro de Cómputos de Alto Desempeño, tanto en su servidor donde se aloja el servicio web como sus clusters de cómputo como Serafin o Mendieta donde se entrenan los modelos. El servidor de CCAD donde se aloja el servicio genera una dependencia crítica porque sin él es imposible alertar a los usuarios del MPF, en cambio, los clusters donde se entrenan los modelos no generan un impacto que comprometa al sistema dado que no es necesario reentrenar constantemente para mantener la precisión. Por último se encuentra una dependencia referida al consumo de APIs meteorológicas para la extracción de datos climáticos necesarios para realizar las predicciones, si bien es posible configurar el sistema para que tenga APIs como segunda opción (si la principal se cae), el impacto es medio ya que no tener esta información disponible reduce el desempeño del modelo.
+Por otra parte se tienen las dependencias tecnológicas, que son los componentes de hardware, software, servicios en la nube, APIs o bases de datos de los que depende la solución para recopilar datos, entrenar modelos o mostrar resultados. Con el mismo criterio mencionado anteriormente se destaca el Centro de Cómputos de Alto Desempeño, tanto en su servidor donde se aloja el servicio web como sus clusters de cómputo como Serafin o Mendieta donde se entrenan los modelos. El servidor de CCAD donde se aloja el servicio genera una dependencia crítica porque sin él es imposible alertar a los usuarios del MPF, en cambio, los clusters donde se entrenan los modelos no generan un impacto que comprometa al sistema dado que no es necesario reentrenar constantemente para mantener la precisión. Por último se encuentra una dependencia referida al consumo de APIs meteorológicas para la extracción de datos climáticos necesarios para realizar las predicciones, si bien es posible configurar el sistema para que tenga APIs como segunda opción (si la principal se cae), el impacto es bajo ya que no tener esta información disponible no reduce de manera significativa el desempeño del modelo.
 
 \begin{longtable}[]{@{}
 >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2281}}
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1927}}
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5428}}@{}}
-\caption{Matriz de documentación de dependencias}
-\label{tab:matriz-de-documentacion-de-dependencias}\\
+\caption{Matriz de dependencias}
+\label{tab:matriz-de-dependencias}\\
 \toprule\noalign{}
 \textbf{Dependencia} & \textbf{Tipo} & \textbf{Impacto} \\
 \midrule\noalign{}
@@ -691,7 +691,7 @@ La gestión de riesgos del sistema de Alerta Temprana de Accidentes Viales se es
 
 Es necesario distinguir dos ejercicios que la norma 42001 requiere por separado y que con frecuencia se confunden. La cláusula 6.1.2 refiere a la evaluación de los riesgos que afectan a los objetivos de la organización, mientras que la cláusula 6.1.4 refiere a la evaluación del impacto del sistema sobre individuos, grupos y sociedad. El presente apartado desarrolla el primero; el segundo se trata en el apartado siguiente. La relación entre ambos es de alimentación: los impactos identificados sobre terceros se incorporan al registro de riesgos en la medida en que generan exposición institucional, legal o reputacional para los organismos involucrados.
 
-El alcance de esta evaluación comprende el ciclo completo del dato y de la predicción bajo el esquema de trabajo que se definió previamente a lo largo de este documento, que es de responsabilidad compartida: el Ministerio Público Fiscal es el origen de los datos y el destinatario de las alertas, mientras que el Laboratorio de Investigación y Desarrollo de Software e Inteligencia Artificial concentra el procesamiento, el entrenamiento y la generación de las predicciones. Al no existir transferencia del sistema, se generan dos superficies de riesgo propias y se tratan como tales, el ingreso de datos y la emisión de alertas.
+El alcance de esta evaluación comprende el ciclo completo del dato y de la predicción bajo el esquema de trabajo que se definió previamente a lo largo de este documento, que es de responsabilidad compartida: el Ministerio Público Fiscal es el origen de los datos y el destinatario de las alertas, mientras que el Laboratorio de Investigación y Desarrollo de Software e Inteligencia Artificial concentra el procesamiento, el entrenamiento y la generación de las predicciones. Al no delegar completamente la operación del sistema en su conjunto, se generan dos superficies de riesgo propias y se tratan como tales, el ingreso de datos y la emisión de alertas.
 
 \subsection{Criterios de Riesgo}\label{criterios-de-riesgo}
 
@@ -811,23 +811,23 @@ R11 & Dependencia de personas clave y ausencia de un esquema definido de continu
 
 \notaflot{\fuentepropia{}. P: probabilidad; I: impacto, valorados según las \cref{tab:escala-de-probabilidad-de-ocurrencia,tab:escala-de-severidad-del-impacto}. El nivel resulta de la \cref{tab:matriz-de-nivel-de-riesgo}. Las categorías de fuente corresponden al Anexo B de ISO/IEC 23894:2023. Los riesgos R8 y R9 se corresponden con las dependencias de impacto crítico y medio identificadas en la matriz de dependencias tecnológicas y funcionales.}
 
-\subsection{Tratamiento y Riesgo Residual}\label{tratamiento-y-riesgo-residual}
+\subsection{Plan de Mitigación de Riesgos}\label{plan-de-mitigacion-de-riesgos}
 
-La \cref{tab:plan-de-tratamiento-y-riesgo-residual} consigna el tratamiento previsto para cada riesgo identificado y el nivel residual estimado al cierre de la etapa actual. Se indica asimismo el actor responsable, considerando el esquema de responsabilidad compartida mencionado al inicio del apartado.
+La \cref{tab:plan-de-mitigacion-de-riesgos} consigna el tratamiento propuesto para cada riesgo identificado y el nivel residual estimado al cierre de la etapa actual. Se indica asimismo el actor responsable, considerando el esquema de responsabilidad compartida mencionado al inicio del apartado.
 
 \begin{longtable}[]{@{}
 >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.0697}}
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.4770}}
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1768}}
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2412}}@{}}
-\caption{Plan de tratamiento y riesgo residual}
-\label{tab:plan-de-tratamiento-y-riesgo-residual}\\
+\caption{Plan de mitigación de riesgos}
+\label{tab:plan-de-mitigacion-de-riesgos}\\
 \toprule\noalign{}
-\textbf{ID} & \textbf{Tratamiento previsto} & \textbf{Responsable} & \textbf{Residual en TRL 3} \\
+\textbf{ID} & \textbf{Tratamiento propuesto} & \textbf{Responsable} & \textbf{Residual en TRL 3} \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\textbf{ID} & \textbf{Tratamiento previsto} & \textbf{Responsable} & \textbf{Residual en TRL 3} \\
+\textbf{ID} & \textbf{Tratamiento propuesto} & \textbf{Responsable} & \textbf{Residual en TRL 3} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -865,6 +865,10 @@ El nivel de riesgo residual del prototipo resulta aceptable para el nivel de mad
 
 \subsection{Flujograma de procesos}\label{flujograma-de-procesos}
 
-% TODO: esta subsección quedó sin contenido en el documento original
-% (solo el título, sin texto ni figura debajo). Completar con el
-% flujograma correspondiente o eliminar el encabezado si no aplica.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{imagenes/image66.png}
+\caption{Flujograma del proceso}
+\label{fig:flujograma-del-proceso}
+\notaflot{\fuentepropia{}.}
+\end{figure}
