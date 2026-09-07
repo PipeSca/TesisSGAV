@@ -1,6 +1,204 @@
 \chapter{Anexos}\label{anexos}
 
-% TODO: este capítulo quedó como placeholder en el documento original
-% ("documentos complementarios al proyecto"), sin contenido real.
-% Completar con los documentos complementarios correspondientes
-% (ej.: como \section{} independientes o \includepdf de anexos existentes).
+\section{Diccionario de datos de la base original}
+\label{sec:diccionario-datos}
+
+Este anexo documenta la estructura y el contenido del archivo fuente
+\texttt{Siniestros unificados para nuevas variables julio 2025 v9 con distancias},
+provisto por el equipo de datos del Ministerio Público Fiscal. Se reproducen los
+nombres de campo tal como figuran en la planilla original, aun cuando su grafía no
+sea homogénea, para preservar la trazabilidad con la fuente.
+
+\subsection{Estructura de la planilla}
+\label{ssec:estructura-planilla}
+
+La base se organiza en tres niveles de análisis: el hecho siniestro, las personas
+involucradas y la georreferenciación. Todas las hojas se vinculan por el número de
+expediente (SAC), que opera como identificador único del siniestro.
+
+\begin{table}[htbp]
+\centering
+\caption{Hojas que componen la planilla de cálculo original}
+\label{tab:hojas-planilla}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.26\textwidth}
+                  >{\raggedright\arraybackslash}p{0.52\textwidth}
+                  >{\raggedleft\arraybackslash}p{0.12\textwidth}@{}}
+\toprule
+\textbf{Hoja} & \textbf{Contenido} & \textbf{Registros} \\
+\midrule
+\texttt{HECHO} & Siniestros con todas las variables del nivel hecho & 4906 \\
+\texttt{Hecho solo georreferencia} & Subconjunto de siniestros efectivamente geocodificados & 4321 \\
+\texttt{Códigos} & Catálogo de referencias de codificación de las hojas de hecho & --- \\
+\texttt{Víctimas} & Datos simples de víctimas (sexo al nacer y edad simple) & 5673 \\
+\texttt{Victagregada} & Víctimas agregadas por sexo al nacer y grupo etario & 4820 \\
+\texttt{Denunciados} & Datos simples de denunciados (sexo al nacer y edad simple) & 5011 \\
+\texttt{Denagregada} & Denunciados agregados por sexo al nacer y grupo etario & 4257 \\
+\texttt{Personas} & Unión de víctimas y denunciados con una columna de rol & 10\,684 \\
+\texttt{Georreferenciación} & Siniestros revisados en el proceso de geocodificación manual & 4884 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.5em}
+{\footnotesize \textit{Nota}. Elaboración propia sobre la planilla provista por el
+Ministerio Público Fiscal. Cuando un mismo número de SAC correspondía a domicilios
+distintos ---y por lo tanto a siniestros distintos--- se le añadió el sufijo
+\texttt{.1} para desambiguarlo.}
+\end{table}
+
+\subsection{Variables de la hoja HECHO}
+\label{ssec:variables-hecho}
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.23\textwidth}
+                    >{\raggedright\arraybackslash}p{0.44\textwidth}
+                    >{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
+\caption{Diccionario de datos de la hoja HECHO}
+\label{tab:diccionario-hecho} \\
+\toprule
+\textbf{Variable} & \textbf{Descripción} & \textbf{Valores o codificación} \\
+\midrule
+\endfirsthead
+
+\multicolumn{3}{@{}l}{\footnotesize\textit{Tabla \ref{tab:diccionario-hecho} (continuación)}} \\
+\toprule
+\textbf{Variable} & \textbf{Descripción} & \textbf{Valores o codificación} \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{3}{r@{}}{\footnotesize\textit{Continúa en la página siguiente}} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+\multicolumn{3}{@{}l}{\textit{Identificación y variables temporales}} \\
+\addlinespace
+\texttt{Nro.\ de SAC} & Número de expediente; identificador único del siniestro & Alfanumérico \\
+\texttt{Fecha de ingreso} & Fecha de ingreso del expediente, aproximada a la del siniestro & Fecha \\
+\texttt{Hora del hecho} & Hora real del siniestro consignada en el expediente & Formato 24 h \\
+\texttt{franja\_horaria} & Bloque horario de seis horas en que ocurre el siniestro & 1 = madrugada (0--6 h); 2 = mañana (6--12 h); 3 = tarde (12--18 h); 4 = noche (18--24 h) \\
+\texttt{dia\_semana\_cat} & Día de la semana & 1 = lunes \ldots\ 7 = domingo \\
+\texttt{es\_fin\_de\_semana} & Indica si el siniestro ocurre en fin de semana & 1 = sí; 2 = no \\
+\texttt{es\_hora\_punta} & Indica si el siniestro ocurre en hora pico & 1 = sí (7:30--9:30, 12:00--14:00 y 17:30--19:30 h); 2 = no \\
+\texttt{tipomesESCOLAR} & Régimen del mes según el calendario escolar y laboral & 1 = laboral/escolar (marzo a noviembre); 2 = no laboral (diciembre a febrero) \\
+\texttt{estacionCLIMA} & Estación del año & 1 = otoño; 2 = invierno; 3 = primavera; 4 = verano \\
+\addlinespace
+
+\multicolumn{3}{@{}l}{\textit{Consecuencias del siniestro}} \\
+\addlinespace
+\texttt{Lesiones} & Tipo de lesiones según la carátula del expediente & Texto libre \\
+\texttt{Lesionescod} & Codificación del tipo de lesiones & 1 = leves; 2 = graves; 3 = homicidio; 4 = otras \\
+\addlinespace
+
+\multicolumn{3}{@{}l}{\textit{Vehículos involucrados}} \\
+\addlinespace
+\texttt{Vehículo} & Vehículo 1 involucrado en el hecho & Texto libre \\
+\texttt{VEHICULO1COD} & Codificación del vehículo 1 & Entero \\
+\texttt{Vehiculo2} & Vehículo 2 o combinación de vehículos; los múltiples se separan con guion medio & Texto libre \\
+\texttt{VEHICULO2COD} & Codificación del vehículo 2; se toma el más pesado del conjunto & Entero \\
+\texttt{Transporte publico1} & Indica si el vehículo 1 es transporte público de pasajeros (colectivo, trolebús) & 1 = sí; 2 = no \\
+\texttt{Transporte publico2} & Indica si el vehículo 2 es transporte público de pasajeros & 1 = sí; 2 = no \\
+\texttt{Inmovil1} & Indica si el vehículo 1 es un objeto fijo (árbol, pared, reja, poste) & 1 = sí; 2 = no \\
+\texttt{Inmovil2} & Indica si el vehículo 2 es un objeto fijo & 1 = sí; 2 = no \\
+\texttt{Motorizado1} & Indica si el vehículo 1 es motorizado & 1 = sí; 2 = no \\
+\texttt{Motorizado2} & Indica si el vehículo 2 es motorizado & 1 = sí; 2 = no \\
+\texttt{Tamaño1} & Tamaño del vehículo 1 según su peso aproximado & Texto libre \\
+\texttt{tam1cod} & Codificación del tamaño del vehículo 1 & 1 = persona; 2 = ligero; 3 = mediano; 4 = medio pesado; 5 = pesado \\
+\texttt{Tamaño2} & Tamaño del vehículo 2 según su peso aproximado & Texto libre \\
+\texttt{tam2cod} & Codificación del tamaño del vehículo 2 & 1 = persona; 2 = ligero; 3 = mediano; 4 = medio pesado; 5 = pesado \\
+\texttt{TOTAL\_VEHICULOS} & Cantidad total de vehículos involucrados & Entero \\
+\texttt{Complejidad} & Tipo de colisión según los actores involucrados & Texto libre \\
+\texttt{Complejcod} & Codificación del tipo de colisión & 1 = casual o sin dato; 2 = dupla; 3 = múltiple \\
+\texttt{involbici} & Indica si intervino al menos una bicicleta & 1 = sí; 2 = no \\
+\texttt{involPeaton} & Indica si intervino al menos un peatón & 1 = sí; 2 = no \\
+\addlinespace
+
+\multicolumn{3}{@{}l}{\textit{Personas involucradas}} \\
+\addlinespace
+\texttt{V\_Fem} & Cantidad de víctimas de sexo femenino & Entero \\
+\texttt{V\_Masc} & Cantidad de víctimas de sexo masculino & Entero \\
+\texttt{V\_ninos} & Cantidad de víctimas del grupo etario niños & Entero \\
+\texttt{V\_joven} & Cantidad de víctimas del grupo etario jóvenes & Entero \\
+\texttt{V\_adulto} & Cantidad de víctimas del grupo etario adultos & Entero \\
+\texttt{V\_adumayor} & Cantidad de víctimas del grupo etario adultos mayores & Entero \\
+\texttt{D\_Fem} & Cantidad de denunciados de sexo femenino & Entero \\
+\texttt{D\_Masc} & Cantidad de denunciados de sexo masculino & Entero \\
+\texttt{D\_ninos} & Cantidad de denunciados del grupo etario niños & Entero \\
+\texttt{D\_joven} & Cantidad de denunciados del grupo etario jóvenes & Entero \\
+\texttt{D\_adulto} & Cantidad de denunciados del grupo etario adultos & Entero \\
+\texttt{D\_adumayor} & Cantidad de denunciados del grupo etario adultos mayores & Entero \\
+\texttt{victimas} & Cantidad total de víctimas del siniestro & Entero \\
+\texttt{denunciados} & Cantidad total de denunciados del siniestro & Entero \\
+\texttt{TotalPersonas} & Cantidad total de personas involucradas & Entero \\
+\addlinespace
+
+\multicolumn{3}{@{}l}{\textit{Localización y entorno vial}} \\
+\addlinespace
+\texttt{Latitud} & Latitud del punto de ocurrencia & Grados decimales \\
+\texttt{Longitud} & Longitud del punto de ocurrencia & Grados decimales \\
+\texttt{tipoVÍA} & Clasificación de la red vial según la ordenanza municipal 8060 & Texto libre \\
+\texttt{TIPOVIA2} & Jerarquía de la vía, con bandas de 20 metros & Vía arterial-sectorial; vías de barrio \\
+\texttt{Num Semáforo} & Identificador del semáforo más cercano & Alfanumérico \\
+\texttt{Distancia Semáforo METROS} & Distancia radial al semáforo más cercano & Metros \\
+\texttt{ConSemaforo} & Indica si hay un semáforo a 100 metros o menos & 1 = sí; 2 = no \\
+\texttt{IDVERTICE} & Identificador del vértice (esquina) más cercano & Alfanumérico \\
+\texttt{DIST VERTICE METROS} & Distancia radial a la esquina más cercana & Metros \\
+\texttt{Enesquina} & Indica si el siniestro ocurrió a 15 metros o menos de un vértice & 1 = sí; 2 = no \\
+\texttt{IDLUMINARIA} & Identificador de la luminaria más cercana & Alfanumérico \\
+\texttt{DIST LUMINARIA METROS} & Distancia radial a la luminaria más cercana & Metros \\
+\addlinespace
+
+\multicolumn{3}{@{}l}{\textit{Condiciones solares y de luminosidad}} \\
+\addlinespace
+\texttt{amanece} & Hora de inicio del crepúsculo matutino & Formato 24 h \\
+\texttt{salidasol} & Hora de salida del sol & Formato 24 h \\
+\texttt{acimut1} & Acimut solar en la salida del sol, medido en sentido horario desde el norte geográfico & Grados (0--360) \\
+\texttt{mediodía} & Hora en que el sol alcanza el cenit & Formato 24 h \\
+\texttt{anochece} & Hora de inicio del crepúsculo vespertino & Formato 24 h \\
+\texttt{acimut2} & Acimut solar en la puesta del sol, medido en sentido horario desde el norte geográfico & Grados (0--360) \\
+\texttt{puesta} & Hora de puesta del sol & Formato 24 h \\
+\texttt{horasxdia} & Duración total de la luz solar del día & Horas \\
+\texttt{dianoche} & Indica si el siniestro ocurrió dentro o fuera del horario solar & Dentro del horario solar; fuera del horario solar \\
+\texttt{LUMI\_NOCHE} & Disponibilidad de luminaria a 15 metros o menos en siniestros nocturnos & No había luminaria; es día, no usa luminaria; había luminaria \\
+\end{longtable}
+
+{\footnotesize \textit{Nota}. Elaboración propia sobre el documento de descripción de
+datos provisto por el Ministerio Público Fiscal. Los nombres de campo se reproducen
+con la grafía de la planilla original.}
+
+\subsection{Notas metodológicas de la fuente}
+\label{ssec:notas-fuente}
+
+\paragraph{Georreferenciación.} La geocodificación se realizó de forma manual, caso por
+caso, ubicando cada siniestro sobre cartografía en línea y registrando las coordenadas
+de latitud y longitud. De los 4906 expedientes identificados como siniestros, 585 no
+pudieron ubicarse con precisión ---mayoritariamente hechos sobre rutas referenciadas por
+altura kilométrica o con descripciones ambiguas de la ubicación--- y 5 correspondían a
+otra localidad. Quedaron así 4321 siniestros georreferenciados dentro del ejido de la
+ciudad de Córdoba.
+
+\paragraph{Clasificación de vehículos.} Se leyeron individualmente algo más de 9000
+registros de expediente para identificar y clasificar los vehículos intervinientes
+(automóvil, colectivo, motocicleta, utilitario, camión, entre otros). En ese proceso se
+detectaron siniestros de tipo casual, con un único vehículo involucrado contra un objeto
+inmóvil.
+
+\paragraph{Grupos etarios.} La segmentación por edad sigue las recomendaciones de la
+Organización Mundial de la Salud: niños (0 a 14 años), jóvenes (15 a 26 años), adultos
+(27 a 59 años) y adultos mayores (60 años o más).
+
+\paragraph{Variables solares.} Los horarios de salida y puesta del sol, crepúsculos,
+acimut y duración del día se obtuvieron del \textit{Astronomical Applications Department}
+del Observatorio Naval de los Estados Unidos, contrastados con los datos del Servicio de
+Hidrografía Naval argentino. Se utilizó esa fuente por permitir la extracción tabular de
+un año completo en una sola consulta, parametrizada para las coordenadas de la ciudad de
+Córdoba.\footnote{\url{https://aa.usno.navy.mil/calculated/mrst}}
+
+\paragraph{Revisión de variables.} En una instancia posterior de revisión se depuraron
+las columnas de inmovilizados y las codificaciones redundantes; se unificó la
+información de transporte público en una única variable de intervención, independiente
+de la complejidad del hecho; y se redefinió la variable de complejidad como tipo de
+colisión, con las categorías dupla (dos vehículos motorizados), múltiple (tres o más),
+peatón contra vehículo motorizado, bicicleta contra vehículo motorizado, objeto contra
+vehículo motorizado y otros. En la misma instancia se incorporaron las variables
+\texttt{involbici} e \texttt{involPeaton}.
