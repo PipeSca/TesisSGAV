@@ -202,3 +202,190 @@ colisión, con las categorías dupla (dos vehículos motorizados), múltiple (tr
 peatón contra vehículo motorizado, bicicleta contra vehículo motorizado, objeto contra
 vehículo motorizado y otros. En la misma instancia se incorporaron las variables
 \texttt{involbici} e \texttt{involPeaton}.
+
+\section{Visualizaciones exploratorias complementarias}
+\label{sec:visualizaciones-exploratorias}
+
+Este anexo reúne el conjunto completo de visualizaciones generadas durante la etapa de
+exploración de datos descripta en la \cref{exploraciuxf3n-de-datos}, sobre la base
+consolidada de 4320 siniestros viales georreferenciados (julio de 2022 a junio de 2024).
+Se incluyen aquí para no sobrecargar el cuerpo principal del informe, dado que solo una
+selección de estas figuras se referencia directamente en el análisis.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\linewidth]{imagenes/anexo_a2_distribucion_mes.png}
+\caption{Distribución de siniestros viales por mes}
+\label{fig:anexo-distribucion-mes}
+\notaflot{Frecuencia mensual de siniestros georreferenciados (n = 4320), julio 2022 --
+junio 2024. El máximo se registra en octubre (460) y el mínimo en julio (246); julio
+computa únicamente 2023, y agosto de 2022 y junio de 2024 son meses parciales, por lo
+que esos tres meses acumulan menos años que el resto. \fuentepropia{}.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\linewidth]{imagenes/anexo_a2_distribucion_estacion.png}
+\caption{Distribución de siniestros viales por estación del año}
+\label{fig:anexo-distribucion-estacion}
+\notaflot{Agregación estacional de los mismos 4320 siniestros. La primavera concentra
+la mayor frecuencia (1348) y el invierno la menor (769), aunque esta última estación
+está subrepresentada porque julio de 2022 no registra incidentes georreferenciados y
+agosto de 2022 y junio de 2024 son meses parciales. \fuentepropia{}.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.62\linewidth]{imagenes/anexo_a2_mapa_calor_barrio.png}
+\caption{Siniestros viales por barrio de la ciudad de Córdoba}
+\label{fig:anexo-mapa-calor-barrio}
+\notaflot{Cantidad de siniestros agregados por barrio (n = 4065 asignados a alguno de
+los 501 polígonos vigentes; 255 casos cayeron fuera de todo polígono y quedaron sin
+barrio asignado). El área central y sus barrios inmediatos concentran los valores más
+altos, con un máximo superior a 200 siniestros en el polígono central. \fuentepropia{}.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\linewidth]{imagenes/anexo_a2_distribucion_dia_anio.png}
+\caption{Distribución de siniestros viales por día del año}
+\label{fig:anexo-distribucion-dia-anio}
+\notaflot{Frecuencia diaria de siniestros superpuesta sobre un calendario único de 365
+días (n = 4320). Julio y agosto acumulan menos años de datos que el resto del
+calendario, y el 29 de febrero solo existe en el año 2024, por lo que esos días deben
+interpretarse con esa salvedad. Se observa mayor concentración entre septiembre y
+noviembre. \fuentepropia{}.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\linewidth]{imagenes/anexo_a2_distribucion_dia_mes.png}
+\caption{Distribución de siniestros viales por día del mes}
+\label{fig:anexo-distribucion-dia-mes}
+\notaflot{Frecuencia de siniestros según el número de día calendario, sin distinguir
+el mes (n = 4320). La distribución es relativamente uniforme entre los días 1 y 28; la
+caída hacia el día 31 responde a que ese día solo existe en 7 de los 12 meses del año,
+y no a un efecto real sobre la siniestralidad. \fuentepropia{}.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\linewidth]{imagenes/anexo_a2_distribucion_dia_semana.png}
+\caption{Distribución de siniestros viales por día de la semana}
+\label{fig:anexo-distribucion-dia-semana}
+\notaflot{Frecuencia según día de la semana (n = 4320). El viernes concentra el máximo
+(678) y el domingo el mínimo (551), con una distribución por lo demás relativamente
+pareja entre martes y sábado. \fuentepropia{}.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.75\linewidth]{imagenes/anexo_a2_feriado.png}
+\caption{Siniestros viales por día: feriado frente a no feriado}
+\label{fig:anexo-feriado}
+\notaflot{Promedio de siniestros por día calendario, distinguiendo feriados
+nacionales de días no feriados (4170 siniestros en 632 días hábiles y 150 en 26
+feriados, según el calendario oficial de feriados de Argentina 2022--2024; no se
+incluyen días no laborables turísticos). El promedio diario resulta levemente menor en
+los feriados (5,77 frente a 6,60). \fuentepropia{}.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\linewidth]{imagenes/anexo_a2_distribucion_hora.png}
+\caption{Distribución de siniestros viales por hora del hecho}
+\label{fig:anexo-distribucion-hora}
+\notaflot{Frecuencia horaria de los siniestros con hora registrada (n = 4260; 60 casos
+sin dato, excluidos), julio 2022 -- junio 2024. Se identifican dos picos, uno hacia el
+mediodía (13 h) y otro más pronunciado al final de la tarde (18 h), coincidentes con
+los horarios de mayor circulación, y un mínimo en la madrugada (3--4 h). \fuentepropia{}.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\linewidth]{imagenes/anexo_a2_diurno_nocturno.png}
+\caption{Siniestros viales diurnos frente a nocturnos, según luz solar}
+\label{fig:anexo-diurno-nocturno}
+\notaflot{Clasificación de los 4320 siniestros según el horario solar real del día en
+que ocurrieron, y no según una franja horaria fija. Un 63\,\% de los casos (2705)
+ocurre en horario diurno y el 37\,\% restante (1615) en horario nocturno. \fuentepropia{}.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\linewidth]{imagenes/anexo_a2_tipo_calle.png}
+\caption{Distribución de siniestros viales por tipo de calle}
+\label{fig:anexo-tipo-calle}
+\notaflot{Clasificación según jerarquía vial (n = 4320). Las vías de barrio concentran
+algo más de la mitad de los casos (2323) frente a las vías arteriales o sectoriales
+(1997), lo que confirma que el fenómeno no se limita a los corredores principales.
+\fuentepropia{}.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\linewidth]{imagenes/anexo_a2_distancia_semaforo.png}
+\caption{Distribución de siniestros viales por distancia al semáforo más cercano}
+\label{fig:anexo-distancia-semaforo}
+\notaflot{Histograma de la distancia radial de cada siniestro al semáforo más cercano
+(n = 4320; eje truncado en 2000 m, lo que deja fuera 81 casos más lejanos, con un
+máximo de 7279 m). La frecuencia decrece marcadamente con la distancia: casi un
+tercio de los siniestros ocurre a menos de 100 m de un semáforo. \fuentepropia{}.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\linewidth]{imagenes/anexo_a2_tipo_vehiculo.png}
+\caption{Distribución del tipo de vehículo o forma de desplazamiento}
+\label{fig:anexo-tipo-vehiculo}
+\notaflot{Participaciones registradas en los 4320 siniestros (n = 8574 observaciones,
+correspondientes a vehículo 1 y vehículo 2 cuando corresponde). La unidad de conteo es
+la participación y no el siniestro, por lo que las categorías no son excluyentes entre
+sí. Los automóviles (3238) y las motocicletas (2900) concentran la mayor parte de las
+observaciones. \fuentepropia{}.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.75\linewidth]{imagenes/anexo_a2_causa.png}
+\caption{Distribución de siniestros viales según causa}
+\label{fig:anexo-causa}
+\notaflot{Clasificación según la carátula asignada en la causa judicial (n = 4316; 4
+casos sin clasificar, excluidos). Predominan las lesiones leves (3092), seguidas por
+las lesiones graves o gravísimas (803), otras carátulas (329) y el homicidio culposo
+(92). \fuentepropia{}.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.75\linewidth]{imagenes/anexo_a2_rango_edad.png}
+\caption{Distribución de víctimas de siniestros viales por rango etario}
+\label{fig:anexo-rango-edad}
+\notaflot{Distribución etaria de las víctimas con dato de edad registrado (n = 4877),
+según los rangos definidos por la Organización Mundial de la Salud. Los adultos (27 a
+59 años) concentran la mayor cantidad de víctimas (2561), seguidos por los jóvenes de
+15 a 26 años (1592). \fuentepropia{}.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.62\linewidth]{imagenes/anexo_a2_mapa_calor_ciudad.png}
+\caption{Mapa de calor de siniestros viales en la ciudad de Córdoba}
+\label{fig:anexo-mapa-calor-ciudad}
+\notaflot{Densidad espacial de los 4320 siniestros georreferenciados, agregada por
+celda hexagonal de superficie constante; la silueta de barrios se incluye solo como
+referencia visual. Se observa una concentración marcada en el área central, con
+máximos puntuales superiores a 30 siniestros por celda. \fuentepropia{}.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\linewidth]{imagenes/anexo_a2_mapa_calor_dia_anio.png}
+\caption{Concentración de siniestros viales por día del año}
+\label{fig:anexo-mapa-calor-dia-anio}
+\notaflot{Representación matricial (mes por día del mes) de la misma distribución
+diaria presentada en la \cref{fig:anexo-distribucion-dia-anio} (n = 4320, mismo
+criterio de superposición sobre un calendario único). Las celdas en blanco
+corresponden a fechas que no existen en el calendario (29 a 31 de febrero, y el día 31
+de abril, junio, septiembre y noviembre). \fuentepropia{}.}
+\end{figure}
