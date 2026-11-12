@@ -19,3 +19,6 @@
 # Carpetas de trabajo temporales
 build/
 preview/
+
+# Anexo suelto: el .tex se regenera con build_anexo_diccionario.py
+anexo_diccionario_datos.tex
