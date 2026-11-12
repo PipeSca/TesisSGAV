@@ -1,0 +1,18 @@
+\chapter{Conclusiones}\label{cap:conclusiones}
+
+El proyecto cumplió su objetivo al nivel de una prueba de concepto. El sistema anticipa bien los bloques críticos, pero todavía tiene margen de mejora en los de bajo riesgo, que son los que permiten liberar recursos. En su estado actual es una fuente de información complementaria y no un criterio para planificar la asignación de recursos.
+
+La conclusión principal es que el techo del desempeño lo fija el proceso más que la tecnología. La variable de mayor peso (víctimas en las últimas 24 horas) depende de la carga manual de los siniestros, cuya latencia es el riesgo más alto del proyecto, y modelos muy distintos entre sí alcanzaron resultados similares. Por eso, mejorar el proceso de carga promete más que complejizar el modelo. Además, la adopción depende de la confianza del usuario, que depende del umbral seleccionado. El producto quedó preparado para calibrarlo sin reentrenar y para comparar sus versiones futuras contra la línea base.
+
+Las principales limitaciones son el proceso de carga y el volumen de datos, que abarca dos años y solo casos con intervención judicial.
+
+La hoja de ruta hacia TRL 4 comprende:
+\begin{enumerate}
+    \item medir la latencia de carga (R2), verificar la reidentificación (R4) y formalizar la validación humana de las alertas (R7);
+    \item calibrar el umbral con el Ministerio Público Fiscal en términos de alertas y omisiones por semana;
+    \item integrar los componentes y validarlos en conjunto en entorno de laboratorio.
+\end{enumerate}
+
+Desde LIDeSIA actualmente se está trabajando sobre una de las limitaciones más importantes, incorporando nuevos datos (períodos 2025 y 2026), lo que duplica el volumen actual y podría permitir en un futuro obtener una mejora significativa del rendimiento.
+
+Por último, el presente trabajo fue motivo de dos publicaciones, una para la Escuela de Perfeccionamiento en Investigación Operativa (2026) y otra para las jornadas de SINERGIA (2026), ambas en proceso de revisión a la fecha de elaboración de este documento.

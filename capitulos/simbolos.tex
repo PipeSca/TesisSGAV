@@ -8,7 +8,7 @@ presentadas en los capítulos anteriores.
 \section*{Siglas y acrónimos}
 \addcontentsline{toc}{section}{Siglas y acrónimos}
 
-\begin{longtable}[]{@{}ll@{}}
+\begin{longtable}[]{@{}l>{\raggedright\arraybackslash}p{12cm}@{}}
 \toprule
 \textbf{Sigla} & \textbf{Significado} \\
 \midrule
@@ -22,6 +22,8 @@ presentadas en los capítulos anteriores.
 API & \eng{Application Programming Interface} \\
 ARIMA & \eng{AutoRegressive Integrated Moving Average} \\
 AUC & \eng{Area Under the Curve} \\
+AUC-ROC & \eng{Area Under the ROC Curve} (área bajo la curva ROC; también ROC-AUC) \\
+CABA & Ciudad Autónoma de Buenos Aires \\
 CatBoost & \eng{Categorical Boosting} \\
 CCAD & Centro de Computación de Alto Desempeño (UNC) \\
 CPU & \eng{Central Processing Unit} \\
@@ -29,12 +31,15 @@ DeepAR & \eng{Deep AutoRegressive} \\
 EFB & \eng{Exclusive Feature Bundling} \\
 ERIA & Ética, Regulaciones e Impacto de la IA (área de LIDeSIA) \\
 ETS & \eng{Error, Trend, Seasonality} \\
+FCE & Facultad de Ciencias Económicas (UNC) \\
 FCEFyN & Facultad de Ciencias Exactas, Físicas y Naturales \\
+FPA & Fuerza Policial Antinarcotráfico \\
 GBM & \eng{Gradient Boosting Machine} \\
 GNN & \eng{Graph Neural Network} \\
 GOSS & \eng{Gradient-based One-Side Sampling} \\
 GPU & \eng{Graphics Processing Unit} \\
 IA & Inteligencia artificial \\
+ID & Identificador (código de cada riesgo en el registro de riesgos) \\
 IEC & \eng{International Electrotechnical Commission} \\
 ISO & \eng{International Organization for Standardization} \\
 ITID & Infraestructura Tecnológica e Ingeniería de Datos (área de LIDeSIA) \\
@@ -50,22 +55,31 @@ MLP & \eng{Multilayer Perceptron} (perceptrón multicapa) \\
 MPF & Ministerio Público Fiscal de la Provincia de Córdoba \\
 MSE & \eng{Mean Squared Error} \\
 MVP & \eng{Minimum Viable Product} (producto mínimo viable) \\
+NASA & \eng{National Aeronautics and Space Administration} \\
+OMS & Organización Mundial de la Salud \\
 PatchTST & \eng{Patch Time Series Transformer} \\
 PMI & \eng{Project Management Institute} \\
 PPT & Personas, procesos y tecnología \\
 PR-AUC & \eng{Precision-Recall Area Under the Curve} \\
 RAG & \eng{Red, Amber, Green} (codificación de alertas por color) \\
 RAM & \eng{Random Access Memory} \\
+RISC-V & \eng{Reduced Instruction Set Computer}, quinta generación (arquitectura abierta de procesadores) \\
 RMSE & \eng{Root Mean Squared Error} \\
 ROC & \eng{Receiver Operating Characteristic} \\
 SAC & Sistema de Administración de Causas \\
 SAT & Sistema de alerta temprana \\
+SECYT & Secretaría de Ciencia y Tecnología (UNC) \\
 SGAV & Sistema de Gestión de Siniestros Viales \\
 SLURM & \eng{Simple Linux Utility for Resource Management} \\
+SNIICT & Sistema Nacional de Infraestructuras de Investigación Científico-Tecnológica \\
 TFT & \eng{Temporal Fusion Transformer} \\
 TRL & \eng{Technology Readiness Level} (nivel de madurez tecnológica) \\
+UI & \eng{User Interface} (interfaz de usuario) \\
 UJ & Unidad Judicial \\
 UNC & Universidad Nacional de Córdoba \\
+UNESCO & \eng{United Nations Educational, Scientific and Cultural Organization} \\
+UNVM & Universidad Nacional de Villa María \\
+UX & \eng{User Experience} (experiencia de usuario) \\
 XAI & \eng{Explainable Artificial Intelligence} (IA explicable) \\
 XGBoost & \eng{Extreme Gradient Boosting} \\
 \end{longtable}
@@ -88,23 +102,41 @@ K & Cantidad de variables medidas simultáneamente en el sistema multivariado. \
 T & Cantidad total de instantes de tiempo de la serie. \\
 t & Índice del paso de tiempo (bloque de seis horas). \\
 \mathbf{z}_t & Vector de observaciones en el instante $t$, con $\mathbf{z}_t \in \mathbb{R}^{K}$. \\
+z_{t,k} & Valor de la variable $k$ en el instante $t$, componente del vector $\mathbf{z}_t$ ($k = 1, \dots, K$). \\
 \mathbf{Z} & Matriz de datos original, de dimensiones $T \times K$. \\
+(\cdot)^{\top} & Transpuesta de un vector o de una matriz. \\
 n & Cantidad de observaciones del conjunto de entrenamiento. \\
 N & Cantidad de muestras del conjunto de prueba. \\
+i & Índice de la observación dentro del conjunto evaluado. \\
 y_i & Valor observado de la variable objetivo para la observación $i$. \\
 \hat{y}_i & Valor predicho por el modelo para la observación $i$. \\
+x_i & Vector de características (predictores) de la observación $i$. \\
+l(\cdot) & Función de pérdida diferenciable y convexa que cuantifica el error entre el valor observado y el predicho. \\
 \hat{y}^{(t-1)}_i & Predicción acumulada tras $t-1$ iteraciones de \eng{boosting}. \\
 f_t & Árbol incorporado en la iteración $t$ del \eng{boosting}. \\
 \mathcal{L}^{(t)} & Función objetivo de XGBoost en la iteración $t$. \\
 \Omega(f_t) & Término de regularización que penaliza la complejidad del árbol. \\
+J & Cantidad de hojas del árbol, empleada en el término de regularización $\Omega(f)$. \\
+\gamma & Hiperparámetro de XGBoost que pondera la cantidad de hojas del árbol dentro de $\Omega(f)$. \\
+\lambda & Hiperparámetro de XGBoost que pondera la magnitud de los pesos de las hojas dentro de $\Omega(f)$. \\
+w & Vector de pesos asignados a las hojas del árbol, penalizado en $\Omega(f)$ mediante $\lVert w \rVert^{2}$. \\
 g_i & Gradiente de primer orden de la función de pérdida. \\
 h_i & Gradiente de segundo orden (hessiano) de la función de pérdida. \\
 M & Cantidad de modelos que participan del ensamble ponderado. \\
+\hat{y}_m & Predicción generada individualmente por el modelo base $m$ del ensamble. \\
+\hat{y}_{\text{ensemble}} & Predicción final del ensamble ponderado. \\
 w_m & Peso asignado al modelo $m$ en el ensamble, con $\sum w_m = 1$ y $w_m \geq 0$. \\
 m & Período estacional de la serie ($m = 4$ bloques por día). \\
 z & Puntaje estándar (\eng{Z-Score}) usado por la capa de decisión. \\
 \sigma & Desviación estándar del comportamiento histórico. \\
 \text{P10},\ \text{P90} & Cuantiles 10\,\% y 90\,\% del intervalo de predicción. \\
+D & Devianza de Poisson: discrepancia media entre valores observados y predichos bajo una distribución de Poisson. \\
+\mathrm{BS} & Puntaje de Brier (\eng{Brier Score}): error cuadrático medio entre la probabilidad estimada y el resultado observado. \\
+VP & Verdaderos positivos: bloques con siniestro en los que el sistema alertó. \\
+VN & Verdaderos negativos: bloques sin siniestro en los que el sistema no alertó. \\
+FP & Falsos positivos: alertas emitidas sin que ocurriera el evento (falsas alarmas). \\
+FN & Falsos negativos: eventos ocurridos sin alerta previa (omisiones). \\
+F_1 & Puntaje F1 (\eng{F1-Score}): media armónica entre la precisión y la sensibilidad. \\
 \end{longtable}
 
 \section*{Convenciones de notación}
@@ -134,5 +166,18 @@ z & Puntaje estándar (\eng{Z-Score}) usado por la capa de decisión. \\
     (prevención), naranja (alerta) y rojo (crítico).
   \item[Bloques temporales.] Salvo indicación en contrario, la unidad de
     agregación es el bloque de seis horas; el bloque 1 abarca de 00:00 a 06:00 y
-    los restantes se numeran de forma consecutiva.
+    los restantes se numeran de forma consecutiva. Las frecuencias expresadas
+    por semana corresponden a 28 bloques (siete días de cuatro bloques).
+  \item[Clases del sistema de alerta.] La clase crítica (1) agrupa los bloques
+    con al menos una víctima y la clase normal (0), los bloques sin víctimas. El
+    sistema emite una alerta cuando la salida del modelo supera el umbral de
+    decisión, y la regla de \emph{alerta permanente} designa la situación de
+    referencia en la que se alerta en todos los bloques.
+  \item[Identificación y nivel de riesgos.] Los riesgos se designan con los
+    códigos R1 a R11 del registro de riesgos. P indica la probabilidad de
+    ocurrencia e I la severidad del impacto, ambas en escala de 1 a 4; su
+    producto determina el nivel de riesgo, expresado en verde, amarillo, naranja
+    o rojo según la matriz de nivel de riesgo. El nivel \emph{inherente} es el
+    valorado antes del tratamiento y el \emph{residual}, el estimado al cierre de
+    la etapa TRL 3.
 \end{description}
