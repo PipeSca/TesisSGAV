@@ -1,0 +1,105 @@
+\chapter{Resultados}\label{cap:resultados}
+
+El producto obtenido es un sistema de alerta temprana que recorre de extremo a extremo el flujo de la \cref{fig:flujograma-del-proceso}. Los 4320 siniestros registrados se transforman en una serie de 2784 bloques de seis horas. Sobre esa serie, un modelo XGBoost de Poisson estima el riesgo de cada bloque, y una capa de decisión con umbral 0,65 emite la alerta. La escala de tres colores quedó especificada como diseño, sin evaluar. El conjunto constituye una prueba de concepto sobre datos reales, correspondiente a TRL 3.
+
+En el conjunto de prueba, el sistema capturó el \qty{87.4}{\percent} de los bloques con víctimas y el \qty{77.8}{\percent} de sus alertas fueron correctas (\cref{tab:res-baseline-referencia}). En términos operativos, por cada semana de 28 bloques emitiría unas 22 alertas, de las cuales 5 serían falsas, y dejaría sin alerta unos 2,5 bloques con víctimas (\cref{tab:res-operativa}). Dado que en este momento el MPF no cuenta con ningún método para predecir la demanda de sus recursos, puede asumirse que se encuentra en una situación equivalente a un estado de alerta permanente: alerta crítica en todos los bloques horarios, con sobreasignación de recursos. Contra ese escenario, la precisión mejora 6,7 puntos porcentuales, aunque el F1 de la clase crítica resulta levemente inferior al de la alerta permanente (\qty{82.3}{\percent} frente a \qty{83.1}{\percent}). El margen es acotado porque el \qty{71.1}{\percent} de los bloques registra víctimas. El valor para el usuario está entonces en reconocer los bloques de bajo riesgo, y allí el modelo identifica el \qty{38.5}{\percent}. Actualmente el MPF mantiene la misma cantidad de recursos asignados incluso en los momentos sin víctimas, lo que implica una oportunidad real de mejora que el \cref{cap:implementacion} propone evaluar con indicadores operativos.
+
+\begin{table}[htbp]
+\centering
+\caption{Desempeño del sistema con umbral frente a la regla de alerta permanente}
+\label{tab:res-baseline-referencia}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xcc@{}}
+\toprule
+\textbf{Métrica} & \textbf{Línea base (umbral 0,65)} & \textbf{Alerta permanente} \\
+\midrule
+Exactitud & \qty{73.2}{\percent} & \qty{71.1}{\percent} \\
+Precisión en clase crítica & \qty{77.8}{\percent} & \qty{71.1}{\percent} \\
+Sensibilidad en clase crítica & \qty{87.4}{\percent} & \qty{100.0}{\percent} \\
+F1 en clase crítica & \qty{82.3}{\percent} & \qty{83.1}{\percent} \\
+Sensibilidad en clase normal & \qty{38.5}{\percent} & \qty{0.0}{\percent} \\
+Precisión en clase normal & \qty{55.4}{\percent} & -- \\
+Proporción de bloques con alerta & \qty{79.9}{\percent} & \qty{100.0}{\percent} \\
+\bottomrule
+\end{tabularx}
+\notaflot{Valores calculados sobre el conjunto de prueba ($N = 557$; 396 bloques críticos y 161 normales) a partir de la \cref{tab:matriz-de-confusion-del-modelo-de-clasif}. La regla de alerta permanente representa la situación operativa actual. \fuentepropia{}.}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Comportamiento del sistema de alerta por cada 28 bloques de seis horas (una semana)}
+\label{tab:res-operativa}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xcc@{}}
+\toprule
+\textbf{Concepto} & \textbf{Conjunto de prueba} & \textbf{Por cada 28 bloques} \\
+\midrule
+Bloques críticos reales & 396 & 19,9 \\
+Bloques normales reales & 161 & 8,1 \\
+\midrule
+Alertas emitidas & 445 & 22,4 \\
+\quad Alertas correctas & 346 & 17,4 \\
+\quad Falsas alarmas & 99 & 5,0 \\
+Bloques sin alerta & 112 & 5,6 \\
+\quad Sin alerta y sin víctimas & 62 & 3,1 \\
+\quad Sin alerta y con víctimas (omisiones) & 50 & 2,5 \\
+\bottomrule
+\end{tabularx}
+\notaflot{Frecuencias obtenidas multiplicando los valores de la \cref{tab:matriz-de-confusion-del-modelo-de-clasif} por 28/557. \fuentepropia{}.}
+\end{table}
+
+El análisis de importancia de las variables indica que el riesgo se explica principalmente por las víctimas de las últimas 24 horas y por la franja horaria. Los seis enfoques de modelado evaluados convergieron en mejoras de magnitud similar, por lo que el modelo de árboles se eligió principalmente por su explicabilidad más que por una superioridad predictiva.
+
+En el plano de la gestión, de los once riesgos valorados queda uno residual de nivel rojo (R4, reidentificación de personas), como resume la \cref{tab:res-riesgos}. Los riesgos R2, R4 y R7 constituyen condiciones de salida hacia TRL 4.
+
+\begin{table}[htbp]
+\centering
+\caption{Distribución de los riesgos identificados según nivel inherente y residual}
+\label{tab:res-riesgos}
+\begin{tabularx}{\linewidth}{@{}lc>{\raggedright\arraybackslash}Xc>{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Nivel} & \textbf{Inherente} & \textbf{Riesgos} & \textbf{Residual (TRL 3)} & \textbf{Riesgos} \\
+\midrule
+Rojo & 2 & R2, R4 & 1 & R4 \\
+Naranja & 4 & R1, R3, R5, R7 & 3 & R2, R3, R7 \\
+Amarillo & 5 & R6, R8, R9, R10, R11 & 6 & R1, R5, R6, R8, R10, R11 \\
+Verde & 0 & -- & 1 & R9 \\
+\midrule
+\textbf{Total} & \textbf{11} & & \textbf{11} & \\
+\bottomrule
+\end{tabularx}
+\notaflot{\fuentepropia{} a partir de las \cref{tab:registro-de-identificacion-y-valoracion-,tab:plan-de-mitigacion-de-riesgos}. El nivel residual de R9 está sujeto a la confirmación de la exclusión de las variables climáticas.}
+\end{table}
+
+La \cref{tab:res-sintesis} reúne el estado de cada componente del producto y lo vincula con los objetivos específicos planteados en el \cref{cap:objetivos}. El grado de cumplimiento de cada objetivo se discute en el \cref{cap:conclusiones}.
+
+{\setstretch{1.0}\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.18\textwidth}
+                    >{\raggedright\arraybackslash}p{0.44\textwidth}
+                    >{\raggedright\arraybackslash}p{0.15\textwidth}
+                    >{\raggedright\arraybackslash}p{0.13\textwidth}@{}}
+\caption{Síntesis de resultados por componente del producto}
+\label{tab:res-sintesis} \\
+\toprule
+\textbf{Componente} & \textbf{Resultado} & \textbf{Estado} & \textbf{Objetivo} \\
+\midrule
+\endfirsthead
+\multicolumn{4}{@{}l}{\footnotesize\textit{Tabla \ref{tab:res-sintesis} (continuación)}} \\
+\toprule
+\textbf{Componente} & \textbf{Resultado} & \textbf{Estado} & \textbf{Objetivo} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Requisitos y partes interesadas & Necesidad, objeto, usuarios, usos no admitidos, requerimientos y alcance de MVP definidos. & Cumplido & OE1 \\
+Transformación de datos & 4320 siniestros convertidos en una serie continua de 2784 bloques de seis horas, con los bloques sin siniestros explícitos. & Cumplido & OE2 \\
+Modelado & Seis enfoques evaluados; línea base XGBoost de Poisson con error cuadrático medio de 0,1931 (\qty{6.0}{\percent} menor que la predicción constante). & Cumplido como línea base & OE3 \\
+Capa de decisión & Umbral binario 0,65 medido: sensibilidad crítica \qty{87.4}{\percent}, sensibilidad normal \qty{38.5}{\percent}. Escala de tres niveles especificada. & Parcial & OE3 \\
+Calibración operativa del umbral & Umbral seleccionado por criterio estadístico; alerta en el \qty{79.9}{\percent} de los bloques. & Pendiente & OE3, OE6 \\
+Explicabilidad & Importancia global de variables; el pasado reciente y la franja horaria explican la mayor parte del riesgo. & Cumplido (global) & OE3 \\
+Riesgos e impacto & Once riesgos valorados y tratados; un riesgo rojo residual (R4). & Cumplido; R4 pendiente & OE4 \\
+Gestión del proyecto & Etapa de descubrimiento con iteraciones semanales y ejecución con tablero Kanban. & Cumplido & OE5 \\
+Madurez tecnológica & Prueba de concepto sobre datos reales con flujo completo documentado. & TRL~3 alcanzado & Objetivo general \\
+Plan de implementación & Etapas, cronograma, perfiles necesarios e indicadores de impacto hacia TRL~7 (\cref{cap:implementacion}). & Propuesto & OE6 \\
+Capacidad de respuesta e impacto real & No evaluados en este trabajo. & Fuera de alcance & -- \\
+\end{longtable}
+}
+\notaflot{\fuentepropia{}.}

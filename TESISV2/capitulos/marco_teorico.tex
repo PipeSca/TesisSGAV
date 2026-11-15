@@ -1,0 +1,556 @@
+\chapter{Marco Teórico}\label{marco-teorico}
+
+\section{El Paradigma de Gestión de Producto y la Gestión de Proyecto}\label{el-paradigma-de-gestiuxf3n-de-producto-y-la-gestiuxf3n-de-proyecto}
+
+Para llevar a cabo el diseño y la implementación del sistema de \eng{forecasting} para accidentes viales a nivel de producto mínimo viable (MVP) se debe comenzar observando el problema con una mirada amplia e integral, en el sentido de que este caso tiene una serie de particularidades las cuales restringen o condicionan el desarrollo respecto de un software tradicional. La gestión de un proyecto se mide o se juzga por el cumplimiento de las restricciones internas, es decir que si se termina a tiempo, respetando el alcance y dentro del presupuesto la gestión se considera exitosa o adecuada según el criterio de la triple restricción del PMI \autocite{pmi2021}. Ahora bien, este enfoque no resulta completamente representativo de los desafíos que implica implementar un sistema basado en inteligencia artificial que tiene como principal objetivo ser soporte para la toma de decisiones, esto es debido a que mientras un proyecto tiene un fin predeterminado, desde la perspectiva de la gestión de producto, un producto no se define por el artefacto que lo materializa sino por el valor que entrega a quien lo usa y posee un ciclo de vida dinámico que requiere iteración constante  \autocite{cagan2018} e ir descubriendo y validando el producto a medida que se implementa en entornos reales.
+
+Se tiene entonces un enfoque alternativo y de uso creciente en el mercado que es denominado Gestión de Producto (Product Management) que sugiere que el éxito de un proyecto depende de gestionar adecuadamente el impacto externo y el valor generado (\eng{outcomes}), es decir resolver un problema real del usuario u optimizar un proceso de la organización. Por otra parte se debe analizar la dimensión de la temporalidad, mientras que un proyecto tiene una naturaleza finita establecida por la fecha de inicio y la fecha de finalización, enfocarse en el producto implica asumir que el ciclo de vida es continuo y va evolucionando con las necesidades del usuario a través de mejoras y nuevas funcionalidades.
+
+La siguiente característica notable que se debe tener en cuenta es el manejo de la incertidumbre y los requerimientos, en un proyecto generalmente se asume la predictibilidad en el sentido de que se intenta definir todo el alcance al principio del mismo, implementar un cambio implica un costo elevado e invertir tiempo en burocracia. Bajo el enfoque en el producto se asume la incertidumbre como constante, especialmente cuando se trabaja con software de inteligencia artificial. No se asume que se conoce lo que necesita o quiere el usuario sino que se lanzan prototipos y se mide la respuesta del usuario adaptando el rumbo con metodologías ágiles. Este último punto condiciona directamente la forma en la que se pueden constituir los equipos de trabajo, enfocarse en el proyecto requiere equipos temporales basados en la disponibilidad de recursos para esa tarea y enfocarse en el proceso permite equipos estables, multidisciplinarios capaces de desenvolverse con profundidad en el dominio del problema.
+
+Este paradigma puede resumirse de la siguiente manera, un \eng{project manager} se enfoca en el cómo y cuándo coordinando recursos, mitigando riesgos de ejecución, eliminar bloqueos y asegurar el cronograma. Un \eng{product manager} en cambio se enfoca en el que y el por qué, entendiendo las necesidades del usuario, definiendo la visión a largo plazo, priorizando qué problemas resolver primero y alinear los objetivos del sistema con los del cliente.
+
+El presente trabajo no adopta una postura excluyente entre ambos paradigmas ni los asume como los únicos existentes, sino que propone un enfoque híbrido: la gestión de producto orienta el desarrollo hacia las necesidades y requerimientos del usuario final, mientras que las herramientas de la gestión de proyectos permiten seleccionar la tecnología, identificar riesgos y restricciones y controlar el uso de los recursos.
+
+\section{Metodologías ágiles: Scrum, Kanban y su combinación}\label{sec:metodologias-agiles}
+
+Las metodologías ágiles surgen como respuesta a proyectos de software en los que los requerimientos no pueden fijarse por completo al inicio. El Manifiesto Ágil \parencite{beck2001} resume sus principios en cuatro valoraciones: los individuos y sus interacciones por sobre los procesos y las herramientas, el software que funciona por sobre la documentación exhaustiva, la colaboración con el cliente por sobre la negociación contractual y la respuesta ante el cambio por sobre el seguimiento de un plan. Estas valoraciones resultan especialmente pertinentes en un producto de inteligencia artificial, en el que ni el cliente ni el equipo de desarrollo conocen de antemano qué nivel de desempeño permiten alcanzar los datos disponibles.
+
+\subsection{Scrum}\label{ssec:scrum}
+
+Scrum es un marco de trabajo liviano para abordar problemas complejos y adaptativos \parencite{schwaber2020}. Organiza el trabajo en iteraciones de duración fija, denominadas \eng{sprints}, al cabo de cada una de las cuales se obtiene un incremento que se revisa con las partes interesadas. Se apoya en tres pilares empíricos: transparencia, inspección y adaptación. Define tres responsabilidades (el \eng{Product Owner}, que prioriza el trabajo según el valor para el cliente; el \eng{Scrum Master}, que facilita el proceso; y los desarrolladores), cinco eventos (el \eng{sprint}, su planificación, la reunión diaria, la revisión y la retrospectiva) y tres artefactos (la lista priorizada del producto o \eng{product backlog}, la lista del \eng{sprint} y el incremento). Su fortaleza principal es la cadencia de revisión con el cliente, que permite descubrir el producto a medida que se construye.
+
+\subsection{Kanban}\label{ssec:kanban}
+
+Kanban, en su aplicación al trabajo del conocimiento, es un método de gestión del flujo de origen \eng{lean} \parencite{anderson2010}. A diferencia de Scrum, no prescribe iteraciones ni roles: se basa en visualizar el trabajo en un tablero cuyas columnas representan los estados por los que pasa cada tarea (por ejemplo, pendiente, en curso, en revisión y terminada), en limitar la cantidad de trabajo en curso para evitar la dispersión y en gestionar el flujo de manera continua. Resulta adecuado cuando las tareas llegan con prioridades cambiantes y el equipo necesita reordenarlas sin esperar al cierre de una iteración.
+
+\subsection{Enfoque híbrido}\label{ssec:enfoque-hibrido}
+
+Ambos métodos no son excluyentes. \textcite{kniberg2010} muestran que comparten los principios ágiles y que pueden combinarse tomando de cada uno las prácticas que el contexto requiere, y \textcite{ladas2009} describe la evolución de equipos que parten de Scrum e incorporan progresivamente el tablero y el control del flujo de Kanban, combinación conocida como Scrumban. En este enfoque, las iteraciones y las revisiones de Scrum se usan mientras el problema y los requerimientos todavía se están descubriendo con el cliente, y el tablero de Kanban toma el control cuando el trabajo pasa a ser una corriente de tareas técnicas de prioridad variable.
+
+Este trabajo adopta esa combinación como metodología híbrida. La razón es que la forma de trabajo quedó determinada por la relación con el cliente: durante la etapa inicial se trabajó en iteraciones semanales con reuniones de revisión con el Ministerio Público Fiscal y LIDeSIA, y una vez comprendidas las necesidades del organismo la gestión interna de los autores pasó a un tablero Kanban. La \cref{sec:metodologia-aplicada} describe cómo se aplicó y qué resultados dio. El enfoque es además coherente con la postura híbrida entre gestión de proyecto y gestión de producto planteada en la sección anterior: Scrum aporta el descubrimiento del producto junto al usuario, y Kanban, junto con las herramientas de gestión de proyectos \parencite{pmi2021}, aporta el control del avance, de los riesgos y del cronograma.
+
+\section{Niveles de madurez tecnológica (ISO 16290:2013)}\label{niveles-de-madurez-tecnoluxf3gica-iso-162902013}\label{sec:iso16290}
+
+Originalmente, el concepto de TRL (technology readiness levels) o niveles de madurez tecnológica fue acuñado por la NASA en la década de los 70, sin embargo en 2013 la Organización Internacional de Estandarización formalizó este esquema publicando la norma internacional ISO 16290:2013, titulada \enquote{Sistemas espaciales --- Definición de los Niveles de Madurez Tecnológica (TRL) y sus criterios de evaluación}.
+
+La finalidad de esta norma es proporcionar un lenguaje común y riguroso que permita a los investigadores, ingenieros y otras partes interesadas determinar correctamente el estado de desarrollo de una tecnología.
+
+La estructura de la norma se divide en nueve niveles de madurez que inicia en el nivel 1 con la formulación de los principios básicos y culmina en el nivel 9 con un sistema probado y operando con éxito en un entorno real. Los primeros niveles abordan las etapas conceptuales iniciales de la investigación. En el nivel TRL 1 se identifican los principios científicos básicos que servirán como bases para el desarrollo posterior. En el nivel TRL 2, se formulan las aplicaciones prácticas de dichos principios y se definen los conceptos tecnológicos preliminares. Finalmente el nivel TRL 3 es el último de los niveles de la fase de investigación, donde se lleva a cabo la demostración analítica y experimental de las funciones del sistema mediante una prueba de concepto.
+
+Los niveles desde TRL 4 hasta TRL 7 constituyen la etapa de desarrollo, donde en el TRL 4 se valida el funcionamiento de los componentes del sistema como un conjunto en un entorno de laboratorio para luego en TRL 5 incrementar la fidelidad de las pruebas, validando el funcionamiento en un entorno relevante y controlado. En TRL 6 se exige la demostración de funcionamiento del sistema en un entorno que simule la realidad donde el sistema debe evidenciar un funcionamiento predecible y documentado, para finalmente concluir con la etapa de desarrollo en el nivel TRL 7 donde un prototipo del sistema funcione en un entorno operativo real que garantice que el sistema es capaz de mitigar los riesgos asociados a la aplicación final antes de ser implementado definitivamente.
+
+Finalmente, la escala de madurez de la norma culmina con los niveles orientados a la calificación formal y el uso continuado del sistema. En TRL 8 el sistema ha sido completamente finalizado y calificado para su uso mediante pruebas de aceptación que certifiquen el correcto funcionamiento. Por último, el nivel TRL 9 se alcanza únicamente cuando el sistema real ha sido probado con éxito y se encuentre disponible en el mercado listo para su uso generalizado.
+
+La adopción de esta norma no solo justifica de manera estandarizada el estado actual del desarrollo alcanzado en el proyecto, sino que también traza una hoja de ruta para gestionar la incertidumbre técnica y asegurar la reproducibilidad del proceso de ingeniería implantado.
+
+\section{Gestión de Sistemas de Inteligencia Artificial (ISO 42001:2023)}\label{gestion-de-sistemas-de-inteligencia-artificial-iso-420012023}
+
+La norma internacional ISO 42001:2023, se titula \enquote{Tecnología de la información --- Inteligencia artificial --- Sistema de gestión} y se constituye como el primer estándar internacional dedicado a establecer los requisitos para la creación, implementación, mantenimiento y mejora continua de un sistema de gestión de inteligencia artificial. Su objetivo principal es estructurar un marco de trabajo que permita a las organizaciones desarrollar o utilizar sistemas de IA de forma ética, segura y transparente.
+
+Para lograrlo, establece la obligatoriedad de realizar una evaluación de impacto del sistema para documentar y analizar las posibles consecuencias de implementar esta tecnología, así como también establece requisitos rigurosos para la gobernanza de datos, gestión del riesgo y la supervisión humana durante todo el ciclo de vida de la tecnología.
+
+Otro aspecto importante de la norma es el énfasis en la calidad y procedencia de los datos, exigiendo procesos documentados para la preparación, selección y etiquetado de datos utilizados en el entrenamiento de modelos con la finalidad de evitar sesgos algorítmicos.
+
+Además la norma también exige la identificación de las partes interesadas y la definición de políticas organizacionales que minimicen el impacto negativo de los sistemas de IA sobre los individuos y la sociedad.
+
+Su estructura facilita la compatibilidad con otros marcos internacionales de gestión ya establecidos en las organizaciones, como la ISO 9001 para la calidad.
+
+En el contexto de este proyecto, la norma se aplica como una referencia a las buenas prácticas que facilite un enfoque ético y estructurado, por lo que su intención no es llegar al nivel requerido para una certificación.
+
+Aunque el proyecto no busque una certificación técnica, se adoptan los controles de la norma para gestionar la calidad y procedencia de los datos suministrados por el Ministerio Público Fiscal desde 2022, contribuyendo a que el entrenamiento de los modelos minimice errores que comprometan la toma de decisiones.
+
+\subsection{Normas y apartados empleados en este trabajo}\label{ssec:normas-apartados}
+
+Para que el encuadre normativo resulte trazable, la \cref{tab:normas-apartados} detalla qué apartados de cada norma se utilizaron y en qué parte del documento se aplican. La norma ISO/IEC 42001 aporta los requisitos del sistema de gestión (cláusulas 4 a 10) y un conjunto de controles de referencia (Anexo A), cuya guía de implementación se desarrolla en su Anexo B. La norma ISO/IEC 23894 \parencite{iso23894} complementa a la anterior con orientación específica para la gestión de riesgos de la inteligencia artificial, construida sobre el proceso de ISO 31000 \parencite{iso31000}.
+
+{\setstretch{1.0}\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.20\textwidth}
+                    >{\raggedright\arraybackslash}p{0.38\textwidth}
+                    >{\raggedright\arraybackslash}p{0.36\textwidth}@{}}
+\caption{Apartados de las normas empleados en el trabajo}
+\label{tab:normas-apartados} \\
+\toprule
+\textbf{Norma y apartado} & \textbf{Contenido} & \textbf{Aplicación en el documento} \\
+\midrule
+\endfirsthead
+\multicolumn{3}{@{}l}{\footnotesize\textit{Tabla \ref{tab:normas-apartados} (continuación)}} \\
+\toprule
+\textbf{Norma y apartado} & \textbf{Contenido} & \textbf{Aplicación en el documento} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+ISO/IEC 42001, 4.2 & Necesidades y expectativas de las partes interesadas. & Partes interesadas y requerimientos (\cref{sec:objeto-requerimientos}). \\
+ISO/IEC 42001, 4.3 & Alcance del sistema de gestión. & Alcance (\cref{sec:alcance}). \\
+ISO/IEC 42001, 6.1.2 y 6.1.3 & Evaluación y tratamiento de los riesgos de IA. & Criterios, registro y plan de mitigación de riesgos (\cref{gestion-de-riesgos}). \\
+ISO/IEC 42001, 6.1.4 & Evaluación del impacto del sistema de IA. & Evaluación de impacto (\cref{evaluacion-del-impacto-del-sistema-de-ia}). \\
+ISO/IEC 42001, A.5 y B.5 & Controles y guía para evaluar impactos sobre individuos, grupos y sociedad. & Impacto sobre individuos y grupos (\cref{impacto-sobre-individuos-y-grupos}). \\
+ISO/IEC 42001, A.6.2.2 y B.6.2.2 & Requerimientos y especificación del sistema de IA. & Justificación del pronóstico y especificación de la capa de decisión (\cref{sec:objeto-requerimientos}). \\
+ISO/IEC 42001, A.7.3 a A.7.5 & Adquisición, calidad y procedencia de los datos para sistemas de IA. & Tratamiento de los datos del MPF (\cref{los-datos,exploraciuxf3n-de-datos}). \\
+ISO/IEC 42001, A.8.2 & Documentación e información del sistema para los usuarios. & Explicabilidad e importancia de variables (\cref{analisis-resultados-baseline}). \\
+ISO/IEC 23894, cláusula 6 & Proceso de gestión de riesgos: identificación, análisis, evaluación y tratamiento. & Gestión de riesgos (\cref{gestion-de-riesgos}). \\
+ISO/IEC 23894, Anexo B & Catálogo de fuentes de riesgo propias de la IA. & Identificación de los riesgos R1 a R11 (\cref{identificacion-y-valoracion-de-riesgos}). \\
+ISO 31000, opciones de tratamiento & Evitar, reducir, compartir o aceptar el riesgo. & Plan de mitigación (\cref{plan-de-mitigacion-de-riesgos}). \\
+ISO 16290 & Definición de los niveles TRL 1 a 9 y sus criterios de evaluación. & Nivel alcanzado (TRL~3) y plan hacia TRL~7 (\cref{cap:implementacion}). \\
+\end{longtable}
+}
+\notaflot{\fuentepropia{} sobre la base de ISO/IEC 42001:2023, ISO/IEC 23894:2023, ISO 31000:2018 e ISO 16290:2013. Las normas se aplican como referencia de buenas prácticas y no con fines de certificación.}
+
+\section{Sistema de Alerta Temprana - SAT}\label{sistema-de-alerta-temprana---sat}
+
+\subsection{Componentes del SAT}\label{componentes-del-sat}
+
+Un sistema de alerta temprana se define como un conjunto de procesos estructurados e integrados que tiene por objetivo proveer al usuario, de manera anticipada la probabilidad de ocurrencia de un hecho o acontecimiento específico, ésta a veces puede ser una probabilidad pura y otras puede ser un indicador de probabilidad o riesgo relativo bajo diferentes tipos de formatos. En el contexto de este proyecto, el sistema de alerta temprana consiste en una arquitectura de \eng{forecasting} basada en un modelo de inteligencia artificial que procesa datos históricos suministrados por el Ministerio Público Fiscal (MPF) para facilitar la toma de decisiones relacionadas con la asignación de recursos operativos.
+
+Para diseñar un sistema de alerta temprana hay que tener en cuenta cuatro aspectos o componentes fundamentales que juntos explican cómo se relaciona con el problema para el cual fue concebido, estos son: Conocimiento del riesgo, seguimiento y pronóstico, comunicación y capacidad de respuesta.
+
+En cuanto a el conocimiento del riesgo, esto está relacionado al contexto en el cual el sistema operará, es decir a la caracterización de la problemática y la comprensión de las variables que influyen en cómo se asignan recursos cuando suceden siniestros viales, que restricciones existen y qué mejoras cabe esperar luego de implementar el sistema.
+
+Por otra parte se considera el seguimiento y pronóstico, aquí se diseña una arquitectura teniendo en cuenta todos los requisitos y las restricciones que contempla el producto. Se puede optar por modelos de línea de base puros como XGBoost, LightGBM o MLP configurados con hiperparámetros adaptados al procesamiento de series temporales para detección de anomalías y entrenados para hacer regresiones o clasificaciones. También se pueden incluir capas de decisión, que consisten en un post procesamiento determinista de la predicción (esto permite que el usuario ajuste la sensibilidad del SAT) para activar el sistema no solo en función de la salida del modelo sino que tenga en cuenta por ejemplo una capa estadística que usa una comparación Z-Score antes de dar el resultado. Otra alternativa que se contempló para hacer el \eng{forecasting} es el uso de múltiples modelos estructurados bajo una arquitectura de ensamblado ponderado (Weighted Ensemble), que le permitirá al SAT aprovechar las distintas ventajas de cada modelo para identificar patrones de distinta naturaleza y combinarlos en una única predicción. En este sentido es necesario comprender que para un mismo set de datos pueden existir modelos que capturen mejor dependencias de largo plazo, que capturen mejor la estacionalidad, que tengan funciones de probabilidad más suavizadas en la salida y otros que tengan gran explicabilidad como es el caso de los modelos basados en árboles de decisión.
+
+Hasta el momento se tiene la capacidad de predecir el riesgo de ocurrencia de un hecho, en este caso un accidente, pero eso es solo una parte del sistema además hay que comunicar de alguna manera al tomador de decisiones. Este es un aspecto crítico de un sistema de alerta temprana porque hay que tener en cuenta en el diseño de experiencia de usuario que el mismo puede interpretar de distinta manera la predicción del modelo, generalmente se tiene la ventaja de que este será un experto en el dominio y tendrá una referencia basada en años de experiencia para comparar con la predicción, al mismo tiempo se tiene la desventaja de que es un usuario que no tiene conocimientos avanzados de estadística o de Machine Learning lo que hace casi obligatorio que el producto se implemente en un formato fácil de consumir como por ejemplo la codificación tipo semáforo.
+
+El último componente que hay que tener en cuenta para diseñar un sistema de alerta temprana es la capacidad de respuesta, esto significa que cada tipo de alerta debe estar ligado a un plan de acción en concreto que debe llevar a cabo el personal del Ministerio Público Fiscal. Este punto excede el alcance de este trabajo en particular dada la complejidad y especificidad de los procesos que lleva a cabo tal institución. Queda pendiente para trabajos que pudieran realizarse en el futuro evaluar el impacto del sistema de \eng{forecasting} en el uso de recursos.
+
+\subsection{Tipos de Alerta}\label{tipos-de-alerta}
+
+Los tipos de alerta se pueden clasificar en dos grandes grupos, según su criticidad y según su horizonte temporal, a continuación se explicarán ambos tipos a fin de explicar cómo se deben tener en cuenta estos aspectos a la hora de diseñar un MVP.
+
+La operativización de un SAT requiere la segmentación de las señales de riesgo mediante umbrales (\eng{thresholds}) basados en métricas estadísticas de control según el tipo de problema al que se está enfrentado y en ocasiones a las preferencias de los usuarios finales.
+
+La metodología más validada tanto en el ámbito académico como en el mercado para escenarios similares consiste en segmentar según tres o cuatro niveles de riesgo con colores predefinidos como sigue:
+
+\begin{description}
+  \item[Nivel verde (línea de base).] Corresponde al estado estacionario del sistema. Los modelos predictivos proyectan que las variables se mantendrán dentro de los intervalos de confianza históricos y los límites de control aceptables.
+  \item[Nivel amarillo (prevención).] Se activa ante la detección de desviaciones estadísticas sutiles o tendencias que indican una deriva del comportamiento normal. Este nivel no implica un riesgo inminente, sino la necesidad de que el tomador de decisiones se mantenga un poco más alerta.
+  \item[Nivel naranja (alerta).] Se establece cuando los algoritmos determinan una alta probabilidad matemática de que las variables más significativas vulneren los umbrales de seguridad en un horizonte temporal cercano. Este nivel activa los procesos que el usuario haya predefinido o considere adecuados para esta alerta según su experiencia.
+  \item[Nivel rojo (crítico).] Representa la inminencia o la ocurrencia efectiva del evento adverso. En este nivel, el sistema pone en conocimiento del usuario que está ante una anomalía significativa y que debe prepararse o tomar decisiones en proporción.
+\end{description}
+
+El sistema propuesto en este trabajo adopta una escala de tres niveles: verde, amarillo y rojo.
+
+\subsection{Características de un SAT eficiente}\label{caracteruxedsticas-de-un-sat-eficiente}
+
+La utilidad operativa de un SAT está condicionada por su horizonte de predicción. Los sistemas se dividen en dos categorías principales, las alertas inmediatas en tiempo real y las alertas predictivas por bloques o franjas de tiempo.
+
+Las alertas inmediatas operan bajo un paradigma reactivo en tiempo real (\eng{near real-time}). Se configuran mediante algoritmos de detección de anomalías puntuales y se activan en el instante exacto en que un parámetro supera un límite preestablecido. Ofrecen una certidumbre matemática elevada respecto a la existencia del evento, pero reducen el margen de maniobra a cero dado que no le da tiempo suficiente al usuario para anticiparse y actuar.
+
+Por otra parte, las alertas predictivas por bloques o franjas de tiempo discretas utilizan modelos supervisados o arquitecturas de aprendizaje profundo para proyectar la serie temporal hacia un horizonte futuro (próximos bloques de tiempo). Esta ventana temporal proporciona un diferencial de gran utilidad para la gestión de riesgos, permitiendo al usuario tomar decisiones anticipándose por medio de una estrategia de mitigación planificada.
+
+El diseño a nivel algorítmico de un SAT basado en inteligencia artificial enfrenta una restricción metodológica conocida como el dilema entre la tasa de verdaderos positivos (\emph{recall}) y la tasa de valor predictivo positivo (precisión) \autocite{fawcett2006}.
+% TODO(bib): en el original también se citaba "Saito y Rehmsmeier (2015)", que no figuraba en la lista de Bibliografía del documento original; agregarla a bibliografia.bib con sus datos completos.
+Un sistema configurado y entrenado con una sensibilidad (\eng{recall}) extrema minimizará la ocurrencia de falsos negativos, asegurando la captura de cualquier anomalía, no obstante, incrementará exponencialmente los falsos positivos, induciendo el fenómeno operativo denominado fatiga de alertas, el cual degrada la confianza del usuario \autocite{ancker2017} dado que siempre está expuesto a una alerta. Por el contrario, la maximización de la precisión reduce las falsas alarmas, pero eleva el riesgo de perderse eventos críticos (falsos negativos) sin emitir alerta alguna. La calibración de los umbrales de decisión debe responder, por tanto, a una comprensión profunda de que implica alertar de cierta manera al tomador de decisiones, y cómo las mismas impactan en el servicio que estos prestan a los ciudadanos.
+
+\section{Forecasting}\label{forecasting}
+
+\subsection{Deep Learning y Machine Learning}\label{deep-learning-y-machine-learning}
+
+En el campo del \eng{forecasting} para pronóstico basado en series temporales se pueden distinguir de manera predominante dos tecnologías para el tratamiento, procesamiento, y generación de modelos predictivos, por un lado se encuentra el Aprendizaje Automático clásico o Machine Learning y por otro a Aprendizaje Profundo o Deep Learning. Además de la obvia distinción terminológica existen diferencias fundamentales en cómo estas técnicas procesan la información, usan diferentes arquitecturas a nivel algoritmos y tienen diferentes requisitos de infraestructura tecnológica que en ocasiones es determinante a la hora de elegir entre una o la otra.
+
+El Machine Learning es una serie o conjunto de algoritmos y modelos que permiten a los sistemas identificar patrones como secuencias, anomalías, ciclos, grupos, tendencias y realizar inferencias a partir de datos sin que estos algoritmos sean programados explícitamente para cada tarea. En el contexto de este proyecto estas técnicas permiten implementar enfoques particularmente robustos dadas las características particulares que este dominio requiere y en especial puede aportar ventajas muy valoradas que se mencionan oportunamente.
+
+Desde el punto de vista teórico, el Machine Learning se apalanca principalmente de la ingeniería de variables (\eng{feature engineering}), donde el conocimiento del dominio en este caso el referido a accidentología vial y su correspondiente proceso judicial permite extraer, construir y modelar características específicas para alimentar modelos como árboles de decisión, LightGBM o XGBoost. Este tipo de implementaciones tiene una ventaja muy relevante respecto de otras técnicas y tecnologías, y es que el Machine Learning tiene capacidad de Explicabilidad (XAI) al no operar como una caja negra absoluta, es decir que permitiría a los analistas judiciales, auditores, y usuarios en general comprender la lógica que subyace a una predicción, garantizando así que el producto esté alineado con los criterios de transparencia exigidos por la norma ISO/IEC 42001 (control A.8.2 de su Anexo A).
+
+El Deep Learning en cambio constituye una subdisciplina del Machine Learning inspirada en la estructura neurobiológica de una neurona del cerebro humano, utiliza redes neuronales artificiales constituidas por una capa de entrada, múltiples capas ocultas conectadas en simultáneo entre sí y estas últimas a una capa de salida que le permite aprender representaciones complejas de datos. A diferencia del Machine Learning clásico el Deep Learning tiene la capacidad intrínseca de realizar la extracción de características de forma automática, identificando relaciones no lineales y todo tipo de dependencias temporales profundas. Dentro del espectro del Deep Learning para series temporales se pueden destacar algunas arquitecturas como las redes de Perceptrón Multicapa (MLP) y las redes recurrentes LSTM (Long Short Term Memory) cada una de las cuales tiene requisitos y limitaciones específicas que se deben tener en cuenta antes de implementarlas.
+
+\subsection{Árboles de decisión}\label{uxe1rboles-de-decisiuxf3n}
+
+Un árbol de decisión es un modelo predictivo o una familia de modelos que segmenta el espacio de los datos de manera recursiva basándose en decisiones binarias, esto genera una estructura jerárquica de ramas y hojas que permite una representación intuitiva del proceso de decisión que favorece la explicabilidad del modelo. Estos árboles individuales suelen presentar limitaciones de varianza y riesgo de sobreajuste, estos inconvenientes pueden ser resueltos mediante el uso de diferentes técnicas como el ensamble mediante Boosting.
+
+El método del Boosting consiste en plantear que un algoritmo de aprendizaje débil, es decir que puede predecir levemente mejor que realizar una predicción aleatoria, puede convertirse en un modelo con un gran rendimiento a través del uso de este método. Básicamente consiste en un método de aprendizaje por ensamble que combina una serie de aprendizajes poco asertivos para generar un modelo con una precisión elevada. Este entrenamiento es realizado de forma secuencial de manera que cada modelo corrige los errores cometidos por su predecesor, por ende la idea principal es combinar varios modelos individuales y unificarlos para mejorar la precisión general.
+
+Existe una técnica de muy amplio uso en el campo del machine learning llamada Bagging que se explica a continuación. Tal metodología implica tomar los aprendizajes débiles para entrenar el modelo general en paralelo, de tal forma que se entrenan varios árboles de forma independiente y en simultáneo con distintos conjuntos de datos. El resultado final se obtiene mediante un promedio de las predicciones o una votación dependiendo de si el problema es de clasificación o regresión.
+
+Si se quiere comparar estas dos metodologías se debe tener en cuenta que en el boosting el entrenamiento es secuencial y cada modelo trata de corregir los errores del modelo anterior, aumentando así la precisión global del estudio. Sin embargo, es más propenso al sobreajuste, por lo que es necesario tomar precauciones a la hora de incorporar nuevos árboles. Esta es una desventaja respecto al bagging y por eso, esta opción puede ser mejor para conjuntos de datos muy complejos con muchas observaciones atípicas.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.59\linewidth]{imagenes/image10.png}
+\caption{Arquitectura de bagging comparada con la de gradient boosting}
+\label{fig:arquitectura-de-bootstrap-comparada-con-}
+\notaflot{\fuentepropia{} en base a la arquitectura de Bagging y Boosting.}
+\end{figure}
+
+\subsection{LightGBM y XGBoost}\label{lightgbm-y-xgboost}
+
+En el contexto de técnicas de aprendizaje supervisado las metodologías basadas en Gradient Boosting mencionadas anteriormente han ido evolucionando para optimizar su funcionamiento en lo referido a limitaciones computacionales en casos donde se necesita trabajar con volúmenes masivos de datos o problemas que tienen de base una alta dimensionalidad, por ejemplo proyectos en donde el modelo tienen que entrenar a partir de 65 características (columnas en el dataset) como lo es el caso de los datos originales de este proyecto de siniestros viales. Para resolver estas deficiencias surgieron arquitecturas optimizadas, las dos más notables son XGBoost (Extreme Gradient Boosting) y LightGBM (Light Gradient Boosted Machine) que destacan por incorporar innovaciones vitales en la función objetivo, la gestión del hardware y las estrategias de división de nodos.
+
+Sobre XGBoost se menciona que fue desarrollado por Tianqi Chen y Carlos Guestrin en 2016, y es una implementación de alto desempeño de Gradient Boosting. Sus fortalezas se basan en dos pilares principales, la regularización matemática de la función objetivo y la optimización del sistema a nivel de hardware. A diferencia de otros modelos como GBM, XGBoost añade un término de regularización formal $\Omega$ a la función objetivo para controlar la complejidad y extensión de los árboles, esto evita el sobreajuste (\eng{overfitting}). La función objetivo se define según la \cref{eq:xgb-objetivo}:
+
+\begin{equation}
+\mathcal{L}^{(t)} = \sum_{i=1}^{n} l\left(y_i,\, \hat{y}_i^{(t-1)} + f_t(x_i)\right) + \Omega(f_t)
+\label{eq:xgb-objetivo}
+\end{equation}
+
+donde $\mathcal{L}^{(t)}$ es la función objetivo evaluada en la iteración $t$, y:
+
+\begin{itemize}
+  \item $n$: cantidad de observaciones del conjunto de entrenamiento.
+  \item $y_i$: valor observado (real) de la variable objetivo para la observación $i$.
+  \item $\hat{y}_i^{(t-1)}$: predicción acumulada del modelo para la observación $i$ luego de $t-1$ iteraciones.
+  \item $x_i$: vector de características (predictores) de la observación $i$.
+  \item $f_t$: nuevo árbol incorporado en la iteración $t$, de modo que $f_t(x_i)$ es la corrección que dicho árbol aporta sobre la predicción previa.
+  \item $l(\cdot)$: función de pérdida diferenciable y convexa que cuantifica el error entre el valor observado $y_i$ y el predicho.
+  \item $\Omega(f_t)$: término de regularización que penaliza la complejidad del árbol $f_t$, definido como $\Omega(f) = \gamma J + \tfrac{1}{2} \lambda \lVert w \rVert^{2}$, siendo $J$ el número de hojas, $w$ el vector de pesos asignados a esas hojas, y $\gamma$ y $\lambda$ los hiperparámetros que controlan la magnitud de la penalización.
+\end{itemize}
+
+Para optimizar esta función rápidamente con cualquier función de pérdida de segundo orden, XGBoost aplica una expansión en serie de Taylor de segundo grado. Esto permite que el algoritmo utilice tanto el gradiente de primer orden ($g_i$) como el gradiente de segundo orden (Hessiano, $h_i$), acelerando drásticamente la convergencia matemática.
+
+\begin{equation}
+\mathcal{L}^{(t)} \simeq \sum_{i=1}^{n} \left[ l\left(y_i,\, \hat{y}_i^{(t-1)}\right) + g_i f_t(x_i) + \tfrac{1}{2} h_i f_t^{2}(x_i) \right] + \Omega(f_t)
+\label{eq:xgb-taylor}
+\end{equation}
+
+donde, además de los términos ya definidos:
+
+\begin{itemize}
+  \item $l\left(y_i,\, \hat{y}_i^{(t-1)}\right)$: pérdida de la predicción acumulada hasta la iteración anterior. Al no depender de $f_t$, constituye un término constante que puede omitirse durante la optimización.
+  \item $g_i = \dfrac{\partial}{\partial\, \hat{y}^{(t-1)}}\, l\left(y_i,\, \hat{y}_i^{(t-1)}\right)$: gradiente de primer orden de la función de pérdida respecto de la predicción acumulada; indica la dirección y magnitud del error que el nuevo árbol debe corregir.
+  \item $h_i = \dfrac{\partial^{2}}{\partial\, \left(\hat{y}^{(t-1)}\right)^{2}}\, l\left(y_i,\, \hat{y}_i^{(t-1)}\right)$: gradiente de segundo orden o hessiano; mide la curvatura de la pérdida y pondera cuán agresiva debe ser esa corrección.
+\end{itemize}
+
+En cuanto a las características de este sistema hay algunos aspectos destacables a tener en cuenta, el primero de ellos es el soporte para valores faltantes (Sparsity-aware Split Finding) en el cual XGBoost asigna automáticamente una dirección por defecto en cada nodo para los datos ausentes basándose en cuál dirección minimiza la pérdida durante el entrenamiento. Otra es la estructura de bloques en paralelo, en esta los datos se almacenan en memoria en formato de bloques ordenados por columnas, esto permite calcular las divisiones de diferentes variables de forma paralela en la CPU. Por último se tiene acceso consciente en caché (Cache-aware Access) que le permite a XGBoost minimizar los fallos de caché asignando hilos de ejecución de manera que los gradientes se puedan leer en bloques continuos.
+
+Por otra parte se tiene a LightGBM (Light Gradient Boosted Machine), el cual fue diseñado por Microsoft en 2017 y concebido específicamente para superar a XGBoost en velocidad de entrenamiento y consumo cuando se trabaja en proyectos de una gran dimensionalidad. De manera general se comenta que sus ventajas se basan en muestreo matemático y en una variante en la forma en la que crecen los árboles respecto del modelo antes mencionado.
+
+Un aspecto fundamental que hay que distinguir cuando se implementan árboles en modelos predictivos es el referido al crecimiento por hojas (Leaf-wise) en contraposición al crecimiento por niveles (Level-wise). La mayoría de los algoritmos de boosting incluyendo las primeras versiones de XGBoost expanden los árboles a medida que van entrenando por el método de crecimiento por nivel, esto significa que todas las hojas de un nivel se generan simultáneamente manteniendo el árbol balanceado pero incurriendo en el riesgo de calcular divisiones ineficientes en ramas que tienen poco gradiente. LightGBM en cambio utiliza una estrategia distinta, el algoritmo busca y divide únicamente la hoja que genera mayor reducción de pérdida global, sin importar la profundidad. Este método genera árboles asimétricos y profundos que reducen rápidamente el error residual, siendo matemáticamente más eficientes a costa de tener una mayor tendencia a sobreajuste en muestras más chicas. LightGBM mitiga este efecto proporcionando un hiperparámetro que pone un límite estricto a la profundidad máxima del árbol.
+
+\begin{table}[htbp]
+\centering
+\caption{Comparación entre XGBoost y LightGBM}
+\label{tab:comparacion-xtreme-gradient-boosting-vs-}
+\small
+\begin{tabularx}{\textwidth}{@{}p{3.1cm}XX@{}}
+\toprule
+\textbf{Dimensión técnica} & \textbf{XGBoost} & \textbf{LightGBM} \\
+\midrule
+Estrategia de crecimiento & Normalmente \eng{level-wise} (por niveles) & \eng{Leaf-wise} (por hojas con mayor ganancia) \\
+División de variables continuas & Percentiles ordenados (\eng{Weighted Quantile Sketch}) & Basado en histogramas optimizados (\eng{bins} fijos) \\
+Manejo de \eng{sparse} & Algoritmo guiado por dispersión (\eng{sparsity-aware}) & Reducción por exclusión de características (EFB) \\
+Técnica de muestreo & Muestreo aleatorio tradicional (\eng{subsampling}) & Muestreo unilateral por gradientes (GOSS) \\
+Consumo de memoria RAM & Moderado-alto (guarda valores exactos o cuantiles complejos) & Extremadamente bajo (enteros de 8 bits para los \eng{bins}) \\
+Velocidad de cómputo & Alta (optimización por bloques y caché) & Muy alta (GOSS, EFB e histogramas) \\
+\bottomrule
+\end{tabularx}
+\notaflot{\fuentepropia{}, según comparación de XGBoost contra LightGBM.}
+\end{table}
+
+\subsection{Ventanas Deslizantes (Sliding Windows)}\label{ventanas-deslizantes-sliding-windows}
+
+Comúnmente en los casos de aprendizaje automático que son más tradicionales los modelos asumen que en un determinado conjunto de datos tiene todos sus registros independientes y distribuidos uniformemente, esto significa por ejemplo que el orden en el cual se tienen los registros es irrelevante, que se tienen igual cantidad de etiquetas de cada clase cuando se quiere clasificar, entre otras implicaciones. Ahora bien, cuando se requiere hacer \eng{forecasting} o aplicar algún tipo de modelo predictivo para series temporales, los datos representan una dependencia cronológica que hace al fondo del problema, es decir, que de alguna manera el estado de una variable en el instante actual está condicionado o relacionado con sus estados cuantitativos en instantes previos. Para poder hacer uso de modelos como XGBoost, LightGBM o algún otro que se considere conveniente es obligatorio reestructurar el dataset de registros clásicos en formato tabla de hechos (Fact Table) a un formato matricial que capture esa estructura secuencial. El método que permite lograr este resultado es comúnmente conocido como enfoque de Ventanas Deslizantes, Sliding Windows, Lagging, o Ventanas de Retardo. Para el caso en específico de su uso en Machine Learning también se conoce como transformación de datos por formulación autorregresiva supervisada.
+
+Dado que el tipo de problema que implica crear un sistema de \eng{forecasting} impulsado por inteligencia artificial para siniestros viales es de naturaleza multivariada se requiere implementar el concepto de ventanas deslizantes para todas las características del dataset original. Específicamente se quiere decir que el número de víctimas o el riesgo de que existan accidentes en un tiempo determinado está relacionado con múltiples variables como lo pueden ser el clima, historial de siniestros previos, lugar, día y hora, festividades, etc, y que por lo tanto un registro debe contener información tanto del presente como del pasado.
+
+La aplicación del método de ventanas deslizantes en un entorno multivariado requiere una generalización geométrica y matemática del proceso de rezago (lagging), transformando tensores temporales en matrices tabulares aptas para algoritmos de aprendizaje automático. A continuación se formula el método mencionado.
+
+Supóngase que se dispone de un sistema con $K$ variables distintas medidas simultáneamente a lo largo de $T$ instantes de tiempo. En cada paso de tiempo $t$ las observaciones no son un número escalar, sino un vector de observaciones $\mathbf{z}_t \in \mathbb{R}^{K}$:
+
+\begin{equation}
+\mathbf{z}_t = \left[ z_{t,1},\; z_{t,2},\; \dots,\; z_{t,K} \right]^{\top}
+\label{eq:vector-observaciones}
+\end{equation}
+
+El conjunto de datos completo se representa como una secuencia cronológica de vectores o, equivalentemente, como una matriz de datos original $\mathbf{Z}$ de dimensiones $T \times K$:
+
+\begin{equation}
+\mathbf{Z} =
+\begin{bmatrix}
+\mathbf{z}_1^{\top} \\
+\mathbf{z}_2^{\top} \\
+\vdots \\
+\mathbf{z}_T^{\top}
+\end{bmatrix}
+=
+\begin{bmatrix}
+z_{1,1} & z_{1,2} & \dots  & z_{1,K} \\
+z_{2,1} & z_{2,2} & \dots  & z_{2,K} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+z_{T,1} & z_{T,2} & \dots  & z_{T,K}
+\end{bmatrix}
+\label{eq:matriz-datos}
+\end{equation}
+
+Este mecanismo convierte un flujo continuo multidimensional en una matriz plana estándar donde cada columna de la nueva matriz pasa a representar una entidad acoplada temporalmente. Puesto que esta transformación es de vital importancia para este proyecto se adjunta a continuación y a mera forma ilustrativa una tabla que representa figurativamente el tratamiento que se le dio a los datos de accidentes viales.
+
+\begin{longtable}[]{@{}lccccccc@{}}
+\caption{Ilustración del método de retardos con ventana deslizante}
+\label{tab:ilustracion-sobre-el-metodo-de-retardos-}\\
+\toprule\noalign{}
+\textbf{Fecha} & \textbf{Día} & \textbf{Temp} & \textbf{Lesiones} & \textbf{Inercia} & \textbf{lag\_1} & \textbf{lag\_3} & \textbf{Víctimas} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\textbf{Fecha} & \textbf{Día} & \textbf{Temp} & \textbf{Lesiones} & \textbf{Inercia} & \textbf{lag\_1} & \textbf{lag\_3} & \textbf{Víctimas} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+01/06 & L & 24 & 0 & 0 & 0 & 0 & 0 \\
+02/06 & M & 24,5 & 0 & 0 & 0 & 0 & 0 \\
+03/06 & X & 22 & 2 & 0 & 0 & 0 & 1 \\
+04/06 & J & 23 & 0 & 1 & 1 & 1 & 0 \\
+05/06 & V & 21,7 & 3 & 0 & 0 & 1 & 3 \\
+06/06 & S & 20 & 2 & 2,2 & 3 & 4 & 1 \\
+07/06 & D & 14,8 & 3 & 2,7 & 1 & 4 & 4 \\
+08/06 & L & 12 & 0 & 3,1 & 4 & 8 & 0 \\
+09/06 & M & 16,5 & 0 & 0 & 0 & 5 & 0 \\
+10/06 & X & 22 & 0 & 0 & 0 & 4 & 0 \\
+11/06 & J & 22,2 & 0 & 0 & 0 & 0 & 0 \\
+12/06 & V & 21,9 & 3 & 0 & 0 & 0 & 1 \\
+\end{longtable}
+
+\notaflot{\fuentepropia{}.}
+
+En la \cref{tab:ilustracion-sobre-el-metodo-de-retardos-} se puede observar cómo queda formateado un set de datos bajo la estructura de formulación autorregresiva supervisada, nótese que cada fila contiene información del presente como el día y la temperatura, e información del pasado como los rezagos (\eng{lags}) y la inercia. Luego se registra la cantidad de víctimas bajo esas condiciones, el modelo que se use intentará predecir las víctimas conociendo el contexto disponible.
+
+\subsection{AutoGluon y Transformers}\label{auto-gluon-y-transformers}
+
+Existe un punto de tangencia entre la arquitectura Transformer (modelos con pesos pre entrenados a partir del cual se realiza un nuevo entrenamiento específico para el caso) y el ecosistema conocido como AutoGluon-TimeSeries (Auto Machine Learning) y es que la combinación de estas dos tecnologías genera un cambio de paradigma fundamental a la hora de realizar pronósticos de series temporales, superando la instancia de modelos estadísticos tradicionales y consolidando como estado del arte a modelos fundacionales de aprendizaje profundo global.
+
+Los Transformers, son caracterizados por su mecanismo de auto atención escalada (scaled dot product attention) que les otorga una capacidad propia o intrínseca para capturar dependencias no lineales de largo plazo, y dinámicas cronológicas relativamente complejas sin verse comprometidos a nivel uso de memoria, o por el desvanecimiento del gradiente como es el caso de las primeras arquitecturas recurrentes.
+
+Por otra parte AutoGluon para series temporales se beneficia de integrar de manera nativa arquitecturas basadas en atención, como la familia de modelos Chronos (Chronos 2, Chronos Bolt, etc) las cuales reestructuran el análisis numérico continuo propio de una serie temporal como una tarea de modelado de lenguaje autorregresivo, similar a los utilizados por los LLM (Large Language Model) actuales mediante procesos de escalamiento local y cuantización uniforme sobre un vocabulario de tokens.
+
+La estrategia propuesta para el uso de AutoGluon no implica que un modelo único domine todos los escenarios reales posibles, es de suponer que según la naturaleza del problema que se enfrente, las limitaciones de información que se disponga, y el nivel de certidumbre requerida condicione la selección del modelo. Es por eso que el objetivo principal de esta tecnología es proveer al usuario una multiplicidad de modelos subdivididos en tres categorías estructurales que se definen a continuación.
+
+Modelos Globales de Aprendizaje Profundo (Global Deep Learning): Modelos que comparten un único set de parámetros para todas las series temporales del dataset. Aquí se ubican los Transformers de secuencia como Chronos y PatchTST, y las redes neuronales recurrentes clásicas como DeepAR de GluonTS.
+
+Modelos Locales Estadísticos (Local Statistical Models): Modelos univariados tradicionales que se ajustan de manera aislada e independiente para cada serie individual, como ARIMA, ETS y Theta de la librería Stats Forecast.
+
+Modelos Tabulares Autoregresivos (Tree-Based Regressors): Mediante estrategias recursivas o por pasos, AutoGluon transforma las series a formato tabular mediante ventanas deslizantes según como se explicó en párrafos anteriores e inyecta estos datos en las arquitecturas optimizadas de LightGBM, XGBoost y CatBoost a través de AutoGluon-Tabular.
+
+\subsection{Ensamble Ponderado (Weighted Ensemble)}\label{ensamble-ponderado-weighted-ensemble}
+
+La fase final del algoritmo no consiste en seleccionar un único modelo individual con el mejor desempeño, sino en construir el denominado Ensamble Ponderado (Weighted Ensemble) que realiza la predicción final.
+
+\begin{equation}
+\hat{y}_{\text{ensemble}} = \sum_{m=1}^{M} w_m \cdot \hat{y}_m,
+\qquad \text{sujeto a } \sum_{m=1}^{M} w_m = 1 \text{ y } w_m \geq 0
+\label{eq:ensamble-ponderado}
+\end{equation}
+
+donde:
+
+\begin{itemize}
+  \item $\hat{y}_{\text{ensemble}}$: predicción final del ensamble, obtenida como combinación lineal de las predicciones de los modelos base.
+  \item $M$: cantidad total de modelos base que integran el ensamble.
+  \item $m$: índice que identifica a cada modelo base, con $m = 1, \dots, M$.
+  \item $\hat{y}_m$: predicción generada individualmente por el modelo base $m$.
+  \item $w_m$: peso asignado al modelo $m$, que representa su contribución relativa a la predicción final. AutoGluon determina estos pesos según el desempeño de cada modelo sobre el conjunto de validación, de manera que los modelos más precisos reciben mayor ponderación.
+\end{itemize}
+
+Las restricciones $\sum_{m=1}^{M} w_m = 1$ y $w_m \geq 0$ garantizan que la combinación sea convexa: los pesos no pueden ser negativos y su suma debe ser unitaria, de modo que la predicción del ensamble permanece dentro del rango de las predicciones individuales y se preserva la escala de la variable objetivo. Un peso $w_m = 0$ implica que el modelo $m$ queda efectivamente excluido del ensamble.
+
+Esta última ecuación muestra que la predicción final es el resultado de agregar las predicciones de cada uno de los diferentes modelos según el peso ponderado que le asigna el método de AutoGluon.
+De este modo el uso y la implementación de este modelo especializado para \eng{forecasting} en series temporales no solo es un software aislado, sino que permite operativizar mediante un marco de trabajo la automatización del procesamiento de datos, la alineación temporal, el uso de transformers con ajuste fino (modificaciones específicas al modelo original) y el ensamble ponderado final.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{imagenes/image21.png}
+\caption{Esquema del ensamble ponderado de AutoGluon}
+\label{fig:esquema-de-ensamble-ponderado-de-autoglu}
+\notaflot{\fuentepropia{} según la documentación del repositorio de AutoGluon-TimeSeries.}
+\end{figure}
+
+\section{Métricas de Evaluación de Modelos}\label{metricas-de-evaluacion-de-modelos}
+
+Un modelo predictivo devuelve números. Para saber si esos números sirven hay que compararlos con lo que efectivamente ocurrió, y esa comparación se resume en indicadores que se denominan métricas.
+
+Fijarlas de antemano es necesario por dos razones. Los modelos descritos en los apartados anteriores tienen arquitecturas y formatos de salida distintos, de modo que compararlos exige una vara común. A eso se suma que el modelo de línea de base funciona como referencia para medir los reentrenamientos futuros, y esa comparación solo tiene sentido si las métricas están definidas desde el inicio.
+
+Conviene una aclaración previa. Ninguna métrica resume por sí sola qué tan bueno es un modelo. Cada una observa un aspecto del problema y deja los demás afuera, razón por la cual el desempeño se reporta siempre con varias en simultáneo.
+
+\subsection{Métricas antes y después del umbral}
+
+El sistema trabaja en dos etapas. Primero el modelo devuelve un número continuo, por ejemplo la cantidad esperada de víctimas para un bloque horario. Después una capa de decisión compara ese número con un umbral y resuelve si emitir la alerta. El umbral es un valor de corte fijado de antemano. Si la salida del modelo lo supera, el sistema activa la alarma; si no lo supera, permanece en estado normal.
+
+De esa arquitectura surgen dos grupos de métricas. Unas evalúan el número continuo que produce el modelo y no dependen del umbral. Otras evalúan la decisión final y dependen por completo de él. Si mañana se modificara el umbral, las primeras quedarían idénticas y las segundas cambiarían, aun tratándose del mismo modelo. Por ese motivo se reportan por separado y sus valores no se comparan entre sí.
+
+Las fórmulas que siguen emplean la notación del \cref{listado-de-simbolos-y-convenciones}, que se resume en la \cref{tab:simbolos-formulas}.
+
+\begin{table}[htbp]
+\centering
+\caption{Símbolos empleados en las fórmulas}
+\label{tab:simbolos-formulas}
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+\toprule
+\textbf{Símbolo} & \textbf{Significado} \\
+\midrule
+$N$ & Cantidad de muestras del conjunto de prueba. \\
+$y_i$ & Valor observado de la variable objetivo para la observación $i$. \\
+$\hat{y}_i$ & Valor predicho por el modelo para la observación $i$. \\
+$m$ & Período estacional de la serie ($m = 4$ bloques por día). \\
+$VP$ & Verdaderos positivos: bloques con siniestro en los que el sistema alertó. \\
+$VN$ & Verdaderos negativos: bloques sin siniestro en los que el sistema no alertó. \\
+$FP$ & Falsos positivos: alertas emitidas sin que ocurriera el evento. \\
+$FN$ & Falsos negativos: eventos ocurridos sin alerta previa. \\
+\bottomrule
+\end{tabularx}
+\notaflot{\fuentepropia{}. La notación completa se detalla en el \cref{listado-de-simbolos-y-convenciones}.}
+\end{table}
+
+\subsection{Métricas de error sobre la salida continua}
+
+Las cinco métricas de este grupo responden a la misma pregunta, cuánto se equivocó el modelo en promedio, y se diferencian por la forma en que castigan los errores grandes y por la escala en que expresan el resultado. Ninguna depende del umbral.
+
+\paragraph{Error Absoluto Medio (MAE)}
+
+\begin{equation}
+\mathrm{MAE} = \frac{1}{N} \sum_{i=1}^{N} \left| y_i - \hat{y}_i \right|
+\label{eq:mae}
+\end{equation}
+
+Promedia el tamaño del error sin distinguir si el modelo se pasó o se quedó corto. Queda expresado en la misma unidad que la variable objetivo, por lo que un MAE de 0,97 se lee como una desviación promedio de aproximadamente una víctima por bloque. Su limitación es que trata por igual un error de diez víctimas y diez errores de una víctima, cuando en un sistema de alerta el primero suele resultar mucho más costoso.
+
+\paragraph{Error Cuadrático Medio (MSE)}
+
+\begin{equation}
+\mathrm{MSE} = \frac{1}{N} \sum_{i=1}^{N} \left( y_i - \hat{y}_i \right)^{2}
+\label{eq:mse}
+\end{equation}
+
+Eleva cada error al cuadrado antes de promediarlo, de modo que las desviaciones grandes pesan mucho más que las pequeñas. Una desviación de cuatro unidades no pesa el doble que una de dos sino cuatro veces más, lo que vuelve al MSE útil para detectar equivocaciones puntuales de gran magnitud. El resultado queda en unidades al cuadrado, magnitud que no significa nada en el dominio del problema, así que solo sirve para comparar modelos entre sí.
+
+\paragraph{Raíz del Error Cuadrático Medio (RMSE)}
+
+\begin{equation}
+\mathrm{RMSE} = \sqrt{\frac{1}{N} \sum_{i=1}^{N} \left( y_i - \hat{y}_i \right)^{2}}
+\label{eq:rmse}
+\end{equation}
+
+Devuelve la medida del MSE a la escala original de la variable, con lo cual conserva el castigo a los errores grandes y admite una lectura directa en víctimas. Por construcción el RMSE es siempre mayor o igual que el MAE. La distancia entre ambos informa sobre la distribución de los errores: si los valores son parecidos el modelo se equivoca de manera pareja, y si el RMSE los supera holgadamente hay unos pocos casos que concentran la mayor parte de la pérdida.
+
+\paragraph{Error Absoluto Escalado Medio (MASE)}
+
+\begin{equation}
+\mathrm{MASE} = \frac{\dfrac{1}{N} \displaystyle\sum_{i=1}^{N} \left| y_i - \hat{y}_i \right|}{\dfrac{1}{N-m} \displaystyle\sum_{i=m+1}^{N} \left| y_i - y_{i-m} \right|}
+\label{eq:mase}
+\end{equation}
+
+Las tres métricas anteriores dependen de la escala de los datos, lo que impide comparar el desempeño entre series distintas con solo mirar el número. El MASE resuelve ese problema dividiendo el error del modelo por el error de un pronóstico ingenuo, que consiste en repetir para cada bloque lo que ocurrió en ese mismo bloque el día anterior. Al tratarse de un cociente entre errores de la misma unidad resulta adimensional. Por debajo de uno el modelo supera a esa referencia trivial y por encima de uno no logra justificar su complejidad frente a ella. AutoGluon lo reporta multiplicado por menos uno, de manera que en sus salidas los valores cercanos a cero corresponden al mejor desempeño.
+
+\paragraph{Devianza de Poisson}
+
+\begin{equation}
+D = \frac{2}{N} \sum_{i=1}^{N} \left[ y_i \log\!\left( \frac{y_i}{\hat{y}_i} \right) - \left( y_i - \hat{y}_i \right) \right]
+\label{eq:devianza-poisson}
+\end{equation}
+
+Las métricas anteriores suponen de manera implícita que los errores se distribuyen en forma simétrica alrededor del valor real. Ese supuesto no se cumple con datos de conteo, porque la cantidad de víctimas de un bloque no puede ser negativa ni fraccionaria y la enorme mayoría de los bloques vale cero. La devianza mide la discrepancia entre lo observado y lo predicho asumiendo una distribución de Poisson, apropiada para el conteo de eventos poco frecuentes. Se adopta la convención de que el término logarítmico vale cero cuando el valor observado es cero. Los valores próximos a cero indican mejor ajuste. Resulta la métrica pertinente cuando el modelo se ajusta mediante regresión de Poisson, porque en ese caso se lo evalúa con la misma cantidad que minimizó durante el entrenamiento.
+
+\subsection{Métricas sobre salidas probabilísticas}
+
+Cuando la salida del modelo se interpreta como una probabilidad, hay dos preguntas que responder y son independientes entre sí. La primera es si el modelo ordena correctamente los casos, lo que se denomina discriminación. La segunda es si los números que asigna resultan creíbles, lo que se denomina calibración. Un modelo puede resolver bien la primera y mal la segunda.
+
+\paragraph{Área bajo la curva ROC (AUC-ROC)}
+
+Mide la discriminación. La curva ROC se construye recorriendo todos los umbrales posibles y registrando, para cada uno, qué porcentaje de eventos reales se captura y qué porcentaje de falsas alarmas se genera \parencite{fawcett2006}. El área bajo esa curva equivale a la probabilidad de que, tomando al azar un bloque con siniestro y otro sin siniestro, el modelo le asigne mayor puntaje al primero. Un valor de 0,5 corresponde al azar y un valor de 1 a la discriminación perfecta. Al recorrer todos los umbrales, la métrica no depende de ninguno en particular.
+
+\paragraph{Área bajo la curva precisión-sensibilidad (PR-AUC)}
+
+La curva ROC tiene un punto débil cuando la clase positiva es muy poco frecuente. Como la tasa de falsos positivos se calcula sobre el total de casos negativos, y ese total es enorme, un aumento considerable de las falsas alarmas en términos absolutos casi no desplaza el eje horizontal. El resultado es un AUC-ROC alto que no se corresponde con la utilidad práctica del modelo.
+
+La curva precisión-sensibilidad evita ese problema porque ninguno de sus dos ejes utiliza los verdaderos negativos. Se construye recorriendo los umbrales y registrando la precisión y la sensibilidad en cada uno, y el área bajo ella se denomina PR-AUC. Su valor de referencia no es fijo: mientras que un clasificador aleatorio obtiene siempre un AUC-ROC de 0,5, en PR-AUC obtiene un valor cercano a la proporción de casos positivos del conjunto. La cifra solo se interpreta, entonces, comparada contra esa proporción o contra un modelo de referencia.
+
+El contraste entre ambas curvas se vuelve marcado en problemas con grillas espacio-temporales finas, donde la proporción de celdas con evento puede caer por debajo del uno por ciento. En esas condiciones un mismo modelo llega a combinar un ROC-AUC del orden de 0,8, que sugiere buena discriminación, con un PR-AUC del orden de 0,01, que indica que en términos operativos la mayoría de las alertas seguiría siendo falsa. Reportar las dos métricas juntas evita una lectura optimista del desempeño.
+
+\paragraph{Puntaje de Brier (Brier Score)}
+
+\begin{equation}
+\mathrm{BS} = \frac{1}{N} \sum_{i=1}^{N} \left( \hat{y}_i - y_i \right)^{2}
+\label{eq:brier}
+\end{equation}
+
+Mide la calibración, donde el valor predicho es la probabilidad estimada y el observado toma el valor uno si el evento ocurrió y cero si no ocurrió. Un modelo está bien calibrado cuando, de todos los bloques a los que asignó una probabilidad del setenta por ciento, alrededor del setenta por ciento termina registrando un siniestro. La métrica va de cero a uno y los valores bajos son mejores. La distinción con el AUC importa en la práctica, porque un modelo puede ordenar bien los bloques y aun así inflar sistemáticamente las probabilidades, y los umbrales de la capa de decisión se fijan justamente sobre esos números.
+
+\paragraph{Intervalos de predicción por cuantiles (P10--P90)}
+
+Los cuantiles no constituyen una métrica en sentido estricto. Son una forma distinta de reportar el pronóstico, disponible en los modelos que pueden ajustarse para estimar cuantiles en vez de un valor central. En lugar de entregar un valor único, el modelo estima una banda: el P10 marca el escenario de riesgo mínimo y el P90 el de riesgo máximo. Ambos se obtienen mediante la pérdida pinball, una función asimétrica que castiga de manera diferente quedarse corto que pasarse. Para el usuario la banda comunica incertidumbre, algo que una estimación puntual no puede hacer.
+
+\subsection{Métricas de clasificación derivadas de la matriz de confusión}
+
+Una vez que la capa de decisión resuelve si emitir la alerta, el problema deja de ser cuánto se equivocó el modelo y pasa a ser si acertó o no acertó. Ese cambio exige otro conjunto de métricas, que se construye en su totalidad a partir de una sola tabla.
+
+La matriz de confusión cruza lo que ocurrió en la realidad con lo que el sistema predijo. De ese cruce salen cuatro situaciones. Los verdaderos positivos (VP) son los bloques con siniestro en los que el sistema alertó. Los verdaderos negativos (VN) son los bloques sin siniestro en los que no alertó. Los falsos positivos (FP) son las falsas alarmas. Los falsos negativos (FN) son los eventos que ocurrieron sin que el sistema advirtiera nada.
+
+\begin{table}[htbp]
+\centering
+\caption{Estructura general de una matriz de confusión}
+\label{tab:matriz-confusion-estructura}
+\begin{tabularx}{\linewidth}{@{}lXX@{}}
+\toprule
+ & \textbf{Predicho: alerta (1)} & \textbf{Predicho: normal (0)} \\
+\midrule
+\textbf{Real: con siniestro (1)} & Verdadero positivo ($VP$) & Falso negativo ($FN$) \\
+\textbf{Real: sin siniestro (0)} & Falso positivo ($FP$) & Verdadero negativo ($VN$) \\
+\bottomrule
+\end{tabularx}
+\notaflot{\fuentepropia{}.}
+\end{table}
+
+Ninguna de las métricas que siguen aporta información que no esté ya en esa tabla. Todas son formas distintas de resumirla, y cada resumen destaca un aspecto a costa de ocultar otro. Por eso en este trabajo la matriz se reporta siempre junto con las métricas que derivan de ella.
+
+\paragraph{Exactitud (Accuracy)}
+
+\begin{equation}
+\text{Exactitud} = \frac{VP + VN}{VP + VN + FP + FN}
+\label{eq:exactitud}
+\end{equation}
+
+Expresa el porcentaje de predicciones correctas sobre el total. Su simplicidad la vuelve intuitiva y a la vez engañosa cuando las clases están desbalanceadas, que es la situación de este dominio. Si de cada cien bloques solo cinco registran siniestros, un sistema que jamás emitiera una alerta acertaría el noventa y cinco por ciento de las veces y sería completamente inútil. La exactitud premia a los modelos que se limitan a predecir lo más frecuente, así que nunca debe reportarse de forma aislada.
+
+\paragraph{Precisión y sensibilidad (Recall)}
+
+\begin{equation}
+\text{Precisión} = \frac{VP}{VP + FP}
+\label{eq:precision}
+\end{equation}
+
+\begin{equation}
+\text{Sensibilidad} = \frac{VP}{VP + FN}
+\label{eq:sensibilidad}
+\end{equation}
+
+La precisión responde qué proporción de las alertas emitidas correspondía a un evento real. Es la métrica que el usuario percibe de manera más directa, porque determina cuánta credibilidad le da a cada aviso. La sensibilidad, denominada recall en la mayor parte de la literatura y en las salidas de las librerías empleadas, responde la pregunta complementaria, qué proporción de los eventos reales alcanzó el sistema a anticipar, y mide por lo tanto su cobertura. Ambas comparten el numerador y difieren en el denominador: la precisión mira la columna de las alertas emitidas y la sensibilidad la fila de los eventos reales.
+
+Las dos métricas están en tensión y no admiten una maximización independiente, tal como se anticipó en la \cref{sistema-de-alerta-temprana---sat}. Bajar el umbral hace que el sistema alerte con más frecuencia, sube la sensibilidad y cae la precisión, con el consiguiente riesgo de fatiga de alertas \autocite{ancker2017}. Subirlo produce el efecto inverso y deja eventos reales sin anticipar. El compromiso entre ambas está bien documentado en la literatura sobre evaluación de clasificadores (Fawcett, 2006), y de él se sigue una conclusión relevante para la gestión del producto. No existe una configuración técnicamente correcta del umbral. La elección es una decisión del usuario sobre qué tipo de error prefiere tolerar.
+
+\paragraph{F1-Score}
+
+\begin{equation}
+F_1 = 2 \cdot \frac{\text{Precisión} \cdot \text{Sensibilidad}}{\text{Precisión} + \text{Sensibilidad}}
+\label{eq:f1}
+\end{equation}
+
+Combina la precisión y la sensibilidad en un único valor mediante la media armónica. La elección de la media armónica y no del promedio común tiene un motivo concreto. Un modelo con precisión de 1,00 y sensibilidad de 0,02 tendría un promedio aritmético de 0,51, cifra que suena razonable, y un F1 de apenas 0,04, cifra que describe la realidad. El F1 solo alcanza valores altos cuando ambas componentes son altas al mismo tiempo, lo que lo vuelve preferible a la exactitud cuando hay desbalance entre clases.
+
+\paragraph{Promedios macro, promedios ponderados y soporte}
+
+Con más de dos clases, por ejemplo cuando el riesgo se clasifica en niveles bajo, medio y alto, las tres métricas anteriores se calculan por clase y después se agregan. El soporte indica cuántos casos reales tiene cada clase en el conjunto de prueba. El promedio macro es un promedio simple y otorga el mismo peso a todas las clases, por lo que refleja el desempeño sobre las poco frecuentes. El promedio ponderado pesa cada clase según su soporte y queda dominado por las mayoritarias. La brecha entre ambos funciona como diagnóstico: si el ponderado supera con holgura al macro, el modelo anda bien en la clase mayoritaria y falla en las demás.
+
+\subsection{Criterio adoptado en este proyecto}
+
+La elección de métricas no puede desprenderse del uso previsto del sistema. En una alerta temprana de siniestros viales los dos tipos de error tienen consecuencias asimétricas. Un falso negativo significa que el organismo no anticipó un evento que demandará recursos especializados en una ventana de tiempo acotada. Un falso positivo compromete capacidad operativa de manera innecesaria y, si se repite, erosiona la confianza del usuario hasta volver irrelevante al producto.
+
+El esquema de evaluación combina entonces tres niveles. Las métricas de error sobre la salida continua comparan los modelos regresores con independencia del umbral y constituyen la referencia estable para los reentrenamientos futuros. Las métricas probabilísticas evalúan la discriminación y la calibración antes de que intervenga decisión alguna. Las métricas de clasificación miden el comportamiento del sistema completo, que es el que el usuario experimenta. La separación entre predicción y decisión que caracteriza a la arquitectura propuesta tiene así su correlato en el esquema de medición.
+
+\subsection{Síntesis}
+
+La \cref{tab:sintesis-metricas} resume los tres grupos de métricas y su dependencia respecto del umbral de decisión.
+
+\begin{table}[htbp]
+\centering
+\caption{Síntesis de las métricas empleadas}
+\label{tab:sintesis-metricas}
+\begin{tabularx}{\linewidth}{@{}lXl@{}}
+\toprule
+\textbf{Grupo} & \textbf{Métricas} & \textbf{¿Depende del umbral?} \\
+\midrule
+Error sobre la salida continua & MAE, MSE, RMSE, MASE y devianza de Poisson & No \\
+Salidas probabilísticas & AUC-ROC, PR-AUC, puntaje de Brier e intervalos P10--P90 & No \\
+Clasificación & Exactitud, precisión, sensibilidad, F1 y promedios macro y ponderado & Sí \\
+\bottomrule
+\end{tabularx}
+\notaflot{\fuentepropia{}.}
+\end{table}

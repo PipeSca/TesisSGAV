@@ -1,0 +1,49 @@
+\chapter{Objetivos y alcance}\label{cap:objetivos}
+
+Este capítulo fija el punto de partida del trabajo: la necesidad que le dio origen, los objetivos que se plantearon para atenderla y los límites dentro de los cuales se desarrolló. El \cref{cap:conclusiones} retoma cada uno de estos objetivos y evalúa su grado de cumplimiento.
+
+\section{Necesidad identificada}\label{sec:necesidad}
+
+La Unidad Judicial de Accidentología Vial del Ministerio Público Fiscal debe mantener disponibles, las 24 horas de todos los días del año, recursos especializados para intervenir ante siniestros viales con víctimas: oficiales de justicia, peritos, sumariantes y personal de apoyo, además de la coordinación con la policía y los servicios de salud. Estos eventos son poco frecuentes en relación con otros que gestiona el organismo, pero cada uno demanda muchos recursos en una ventana de tiempo muy acotada, y hasta el momento su ocurrencia no puede anticiparse. En consecuencia, la Unidad Judicial dimensiona su operación como si el riesgo fuera siempre máximo.
+
+La necesidad, relevada junto con el Ministerio Público Fiscal y con LIDeSIA (\cref{sec:metodologia-aplicada}), es entonces la siguiente: contar con información anticipada sobre los momentos de mayor y de menor riesgo de siniestros con víctimas, para planificar la asignación de recursos en lugar de sobredimensionarla de manera permanente.
+
+\section{Objetivo general}\label{sec:objetivo-general}
+
+Diseñar y validar, a nivel de prueba de concepto (TRL~3), un sistema de alerta temprana basado en inteligencia artificial que estime el riesgo de siniestros viales con víctimas en la ciudad de Córdoba para bloques de seis horas, como herramienta de apoyo a la planificación de recursos de la Unidad Judicial de Accidentología Vial, gestionado conforme a los lineamientos de la norma ISO/IEC 42001:2023.
+
+\section{Objetivos específicos}\label{sec:objetivos-especificos}
+
+\begin{description}[leftmargin=3.2em,labelwidth=2.6em,labelsep=0.6em,itemsep=2pt]
+  \item[OE1.] Relevar el proceso judicial ante un siniestro, las necesidades de los usuarios y los requerimientos del sistema, en conjunto con el Ministerio Público Fiscal y LIDeSIA.
+  \item[OE2.] Transformar la base de siniestros provista por el Ministerio Público Fiscal en una serie temporal continua, agregada en bloques de seis horas y apta para pronóstico.
+  \item[OE3.] Experimentar con distintos enfoques de modelado y seleccionar un modelo de línea base explicable, acompañado de una capa de decisión que traduzca su salida en alertas.
+  \item[OE4.] Identificar, valorar y tratar los riesgos del sistema y evaluar su impacto sobre individuos y grupos, según ISO/IEC 42001:2023 e ISO/IEC 23894:2023.
+  \item[OE5.] Gestionar el proyecto con una metodología ágil híbrida (Scrum y Kanban) adaptada a la relación con el cliente.
+  \item[OE6.] Proponer un plan de implementación hacia TRL~7, con etapas, cronograma, perfiles necesarios e indicadores para evaluar su impacto.
+\end{description}
+
+\section{Alcance}\label{sec:alcance}
+
+El trabajo comprende el ciclo del dato y de la predicción, desde la base de siniestros que entrega el Ministerio Público Fiscal hasta la emisión de una alerta, a nivel de prueba de concepto sobre datos reales. La \cref{tab:alcance} resume qué queda dentro y fuera del alcance.
+
+\begin{table}[htbp]
+\centering
+\caption{Alcance del proyecto}
+\label{tab:alcance}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Incluido} & \textbf{Excluido} \\
+\midrule
+Siniestros con intervención judicial en la ciudad de Córdoba, julio de 2022 a junio de 2024. & Siniestros sin intervención judicial y otras localidades de la provincia. \\
+Pronóstico agregado para toda la ciudad por bloques de seis horas. & Pronóstico por zona o barrio (explorado solo de manera experimental). \\
+Transformación de los datos, experimentación, modelo de línea base y capa de decisión. & Despliegue del sistema en producción e integración con los sistemas del MPF. \\
+Requerimientos, partes interesadas, riesgos y evaluación de impacto según ISO/IEC 42001 e ISO/IEC 23894. & Certificación de un sistema de gestión de IA. \\
+Plan de implementación propuesto, con cronograma e indicadores de impacto. & Ejecución del plan y medición del impacto real sobre el uso de recursos. \\
+Usuarios del área de Accidentología Vial del MPF. & Policía Judicial, agentes de tránsito, personal municipal y ciudadanía. \\
+\bottomrule
+\end{tabularx}
+\notaflot{\fuentepropia.}
+\end{table}
+
+El alcance se apoya en dos supuestos. El primero es que el Ministerio Público Fiscal mantiene actualizada la carga de los siniestros, condición necesaria para un modelo que se alimenta del pasado reciente. El segundo es que el sistema funciona como apoyo a la decisión y no la reemplaza: las alertas se interpretan siempre junto con el criterio profesional del personal de la Unidad Judicial.

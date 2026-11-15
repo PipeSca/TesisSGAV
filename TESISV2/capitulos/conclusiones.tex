@@ -1,0 +1,66 @@
+\chapter{Conclusiones}\label{cap:conclusiones}
+
+Este trabajo partió de una necesidad concreta del Ministerio Público Fiscal: anticipar los momentos de mayor y menor riesgo de siniestros viales con víctimas para planificar los recursos de la Unidad Judicial de Accidentología Vial, en lugar de sobredimensionarlos de manera permanente (\cref{cap:objetivos}). Para atenderla se trabajó con una metodología ágil híbrida junto al cliente, se desarrolló un sistema de alerta temprana a nivel de prueba de concepto y se propuso un plan para llevarlo a operación. Este capítulo evalúa el cumplimiento de los objetivos, presenta las conclusiones técnicas y reúne lo aprendido en el proceso.
+
+\section{Cumplimiento de los objetivos}\label{sec:cumplimiento-objetivos}
+
+El objetivo general se cumplió al nivel de una prueba de concepto: el sistema estima el riesgo de cada bloque de seis horas a partir de datos reales y emite una alerta, con el flujo completo documentado y gestionado conforme a ISO/IEC 42001, lo que corresponde a TRL~3. La \cref{tab:cumplimiento-objetivos} detalla el grado de cumplimiento de cada objetivo específico.
+
+{\setstretch{1.0}\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.27\textwidth}
+                    >{\raggedright\arraybackslash}p{0.50\textwidth}
+                    >{\raggedright\arraybackslash}p{0.15\textwidth}@{}}
+\caption{Cumplimiento de los objetivos específicos}
+\label{tab:cumplimiento-objetivos} \\
+\toprule
+\textbf{Objetivo} & \textbf{Evidencia} & \textbf{Grado} \\
+\midrule
+\endfirsthead
+\multicolumn{3}{@{}l}{\footnotesize\textit{Tabla \ref{tab:cumplimiento-objetivos} (continuación)}} \\
+\toprule
+\textbf{Objetivo} & \textbf{Evidencia} & \textbf{Grado} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+OE1. Relevar el proceso, las necesidades y los requerimientos. & Procedimiento judicial, necesidad, objeto, partes interesadas y requerimientos funcionales y no funcionales (\cref{procedimiento-judicial-ante-un-siniestro,sec:objeto-requerimientos}). & Cumplido \\
+OE2. Transformar la base en una serie temporal apta para pronóstico. & 4320 siniestros convertidos en 2784 bloques de seis horas con ventanas deslizantes (\cref{pipeline-del-modelo-de-luxednea-base-baseline}). & Cumplido \\
+OE3. Seleccionar un modelo de línea base explicable con su capa de decisión. & Seis enfoques evaluados; XGBoost de Poisson con umbral 0,65 y explicabilidad global, con una mejora acotada sobre la referencia trivial. La calibración operativa del umbral y la escala de tres colores quedan pendientes. & Cumplido parcialmente \\
+OE4. Gestionar riesgos y evaluar el impacto. & Once riesgos valorados y tratados según ISO/IEC 23894 y evaluación de impacto según ISO/IEC 42001; R4 con tratamiento pendiente. & Cumplido \\
+OE5. Gestionar el proyecto con una metodología ágil híbrida. & Etapa de descubrimiento con iteraciones semanales y etapa de ejecución con tablero Kanban (\cref{sec:metodologia-aplicada}). & Cumplido \\
+OE6. Proponer un plan de implementación hacia TRL~7, con etapas, cronograma, perfiles necesarios e indicadores para evaluar su impacto. & Plan de siete etapas hacia TRL~7, cronograma de 42 semanas, perfiles necesarios e indicadores de impacto (\cref{cap:implementacion}). & Cumplido \\
+\end{longtable}
+}
+\notaflot{\fuentepropia.}
+
+\section{Conclusiones técnicas}\label{sec:conclusiones-tecnicas}
+
+El sistema todavía no discrimina con solidez entre bloques de alto y bajo riesgo. Su sensibilidad en la clase crítica es similar a la de una alerta permanente, y su aporte diferencial (reconocer cerca de cuatro de cada diez bloques sin víctimas) es real pero insuficiente para fundar decisiones de asignación de recursos. En su estado actual cumple el rol que se espera de una línea base en TRL~3: demostrar que los datos contienen señal predictiva, fijar la métrica de referencia y dejar definido el flujo de datos sobre el cual evaluar mejoras.
+
+La conclusión principal es que el techo del desempeño lo fija el proceso más que la tecnología. La variable de mayor peso, las víctimas de las últimas 24 horas, depende de la carga manual de los siniestros, cuya latencia es el riesgo más alto del proyecto, y modelos muy distintos entre sí alcanzaron resultados similares. Por eso, mejorar el proceso de carga promete más que complejizar el modelo. Además, la adopción depende de la confianza del usuario, que a su vez depende del umbral seleccionado. El producto quedó preparado para calibrarlo sin reentrenar y para comparar sus versiones futuras contra la línea base.
+
+Las principales limitaciones son el proceso de carga y el volumen de datos, que abarca dos años y solo los casos con intervención judicial. Desde LIDeSIA se está trabajando actualmente sobre esta última limitación, incorporando los datos de 2025 y 2026, lo que duplica el volumen disponible y podría permitir una mejora significativa del rendimiento.
+
+\section{El proceso de aprendizaje}\label{sec:proceso-aprendizaje}
+
+Más allá del producto, el proyecto fue un proceso de aprendizaje para los autores en tres planos.
+
+\paragraph{El trabajo con el Ministerio Público Fiscal.} Trabajar con un organismo judicial implicó trabajar con abogados, profesionales cuya formación, vocabulario y forma de razonar son muy distintos de los de un equipo de ingeniería. Las primeras reuniones exigieron traducir en ambos sentidos: entender qué significa para la Unidad Judicial una lesión grave o una carátula, y explicar qué puede y qué no puede prometer un modelo predictivo. Comunicarse con profesionales de otras áreas fue uno de los aprendizajes más valiosos del proyecto. Al mismo tiempo, los autores aprendieron a trabajar con los tiempos de un organismo público. La lentitud en obtener respuestas a las consultas, consecuencia de circuitos administrativos que no dependen de la voluntad de los interlocutores, fue la principal dificultad desde el punto de vista del cliente. Los autores buscaban avanzar rápido y la burocracia propia del organismo marcaba otro ritmo. Aprender a planificar contando con esa restricción, en lugar de padecerla, es una lección que excede a este proyecto.
+
+\paragraph{La adaptación al cambio.} El proyecto cambió muchas veces de rumbo (\cref{tab:cambios-proyecto}): se reformuló la variable objetivo, se abandonaron enfoques que no daban resultado, cambió la base de datos y los recursos de cómputo impusieron sus propios límites. La metodología híbrida fue la herramienta que permitió absorber esos cambios sin perder el objetivo. Las iteraciones semanales del comienzo dieron un rumbo compartido con el cliente, y el tablero Kanban permitió reordenar las prioridades cada vez que un resultado obligaba a replantear el camino. Superar esos cambios fue una prueba en sí misma y deja como aprendizaje que, en un producto de inteligencia artificial, el plan es una hipótesis que los datos confirman o refutan.
+
+\paragraph{La gestión frente a la técnica.} La lección más importante es también una autocrítica. Si el proyecto volviera a empezar, los autores dedicarían más tiempo a la gestión del proyecto y menos a la experimentación con modelos. La experimentación produjo hallazgos valiosos, pero la conclusión principal del trabajo es que el límite del desempeño está en el proceso de carga de datos y no en el algoritmo, y esa conclusión podría haberse alcanzado antes con más foco en el proceso. En términos de la \cref{ssec:balance-metodologia}, mantener una revisión periódica con el cliente durante todo el proyecto habría protegido las tareas importantes frente a las urgentes.
+
+\section{Trabajo futuro}\label{sec:trabajo-futuro}
+
+El camino para continuar el trabajo está definido en el plan de implementación del \cref{cap:implementacion}. En lo inmediato, la hoja de ruta hacia TRL~4 comprende:
+
+\begin{enumerate}[itemsep=2pt]
+    \item medir la latencia de carga (R2), verificar la reidentificación (R4) y formalizar la validación humana de las alertas (R7);
+    \item calibrar el umbral con el Ministerio Público Fiscal en términos de alertas y omisiones por semana;
+    \item integrar los componentes y validarlos en conjunto en entorno de laboratorio.
+\end{enumerate}
+
+A partir de allí, la validación en modo sombra, la capacitación de los usuarios y un piloto operativo en la Unidad Judicial permitirían alcanzar TRL~7 en unos diez meses. Queda además abierta la incorporación de la predicción por zonas, cuyo potencial se observó en la experimentación, condicionada a una nueva evaluación de impacto por el riesgo de uso desviado (R10).
+
+Por último, el presente trabajo dio lugar a dos publicaciones, una para la Escuela de Perfeccionamiento en Investigación Operativa (2026) y otra para las jornadas de SINERGIA (2026), ambas en proceso de revisión a la fecha de elaboración de este documento.
